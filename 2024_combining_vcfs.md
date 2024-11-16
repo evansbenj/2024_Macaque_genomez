@@ -1,6 +1,21 @@
 # Combining GVCFs
 
-Alan and Ravi generated gvcfs for all the samples, which is amazing!  They called all callable SNPs, which will allow me to estimate pi per site.
+Alan and Ravi generated gvcfs for all the samples, which is amazing!  They called all callable SNPs, which will allow me to estimate pi per site.  Here is the information Alan provided:
+```
+I generated the GATK intervals by splitting the rhesus assembly on assembly gaps. That means there are gaps between intervals, but those are assembly gaps consisting on Ns where SNVs cannot be called.
+
+Below are UCSC views of the two gaps you pointed out below showing the assembly gaps: 
+
+https://genome.ucsc.edu/s/Rharris1/rheMac10.gap1
+
+https://genome.ucsc.edu/s/Rharris1/rheMac10.gap2
+
+I completed the all-sites GenotypeGVCFs SNV calling on the Sulawesi samples. I used GATK VariantAnnotator for AlleleBalance annotations and Ensembl VEP for gene annotations.
+
+We apply the GATK hard filters described here:
+
+https://software.broadinstitute.org/gatk/documentation/article?id=11097
+```
 
 I also need to work with only SNPs, so I am generating a concatenated SNPs only files for each chromosome like this.
 
