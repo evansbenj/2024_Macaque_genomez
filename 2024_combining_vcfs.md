@@ -15,6 +15,9 @@ I completed the all-sites GenotypeGVCFs SNV calling on the Sulawesi samples. I u
 We apply the GATK hard filters described here:
 
 https://software.broadinstitute.org/gatk/documentation/article?id=11097
+
+Normally we remove SNVs that fail the hard filters which are marked with "hardFilter.snp" in the FILTER field. However, since you want all sites vcfs I left those in the vcfs.
+
 ```
 
 I also need to work with only SNPs, so I am generating a concatenated SNPs only files for each chromosome like this.
