@@ -37,9 +37,26 @@ bcftools index ${1}_filtered.vcf.gz
 gatk --java-options -Xmx10G IndexFeatureFile -I ${1}_filtered.vcf.gz
 ```
 Then I filtered to include only sites with the number of missing genotypes being less than or equal to 10 and setting the minimum genotype quality at 30 as follows:
+
 ```
-module load StdEnv/2023 vcftools
-```
-```
-vcftools --gzvcf output.filtered.snps.1.all.AB.vep.vcf.gz_snpsonly.vcf.gz_concat.vcf.gz_Sulasnpsonly.vcf.gz_filtered.vcf.gz --max-missing-count 10 --minQ 30 --recode --recode-INFO-all --stdout | gzip -c >  ./SulaSNPs.chr1_maxmissingcount_10_genoqual30.vcf.gz
+#!/bin/sh
+#SBATCH --job-name=vcftools_filter
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=1
+#SBATCH --time=10:00:00
+#SBATCH --mem=2gb
+#SBATCH --output=vcftools_filter.%J.out
+#SBATCH --error=vcftools_filter.%J.err
+#SBATCH --account=rrg-ben
+
+# execute like this: sbatch 2024_bcftools_concat.sh output.filtered.snps.1.*.AB.vep.vcf.gz_snpsonly.vcf.gz
+# load these modules before running:
+module load StdEnv/2023  gcc/12.3 bcftools/1.19 gatk/4.4.0.0 java/17.0.6 tabix vcftools
+vcftools --gzvcf ${1} --max-missing 1 --recode --recode-INFO-all --out ${1}_nomissing.vcf
+vcftools --gzvcf ${1} --max-missing-count 10 --minQ 30 --recode --recode-INFO-all --stdout | gzip -c >  ./SulaSNPs.${2}_maxmissingcount_10_genoqual30.vcf.gz
+
+#bgzip -c ${1}_nomissing.vcf
+#bgzip -c ${1}_nomissing.vcf > ${1}_nomissing.vcf.gz
+bcftools index SulaSNPs.${2}_maxmissingcount_10_genoqual30.vcf.gz
+gatk --java-options -Xmx10G IndexFeatureFile -I SulaSNPs.${2}_maxmissingcount_10_genoqual30.vcf.gz
 ```
