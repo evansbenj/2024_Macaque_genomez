@@ -36,3 +36,10 @@ bcftools view -f PASS ${1} -O z -o ${1}_filtered.vcf.gz
 bcftools index ${1}_filtered.vcf.gz
 gatk --java-options -Xmx10G IndexFeatureFile -I ${1}_filtered.vcf.gz
 ```
+Then I filtered to include only sites with the number of missing genotypes being less than or equal to 10 and setting the minimum genotype quality at 30 as follows:
+```
+module load StdEnv/2023 vcftools
+```
+```
+vcftools --gzvcf output.filtered.snps.1.all.AB.vep.vcf.gz_snpsonly.vcf.gz_concat.vcf.gz_Sulasnpsonly.vcf.gz_filtered.vcf.gz --max-missing-count 10 --minQ 30 --recode --recode-INFO-all --stdout | gzip -c >  ./SulaSNPs.chr1_maxmissingcount_10_genoqual30.vcf.gz
+```
