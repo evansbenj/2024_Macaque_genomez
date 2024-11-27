@@ -51,13 +51,13 @@ Then I filtered to include only sites with the number of missing genotypes being
 # execute like this: sbatch 2024_bcftools_concat.sh output.filtered.snps.1.*.AB.vep.vcf.gz_snpsonly.vcf.gz
 # load these modules before running:
 module load StdEnv/2023  gcc/12.3 bcftools/1.19 gatk/4.4.0.0 java/17.0.6 tabix vcftools
-vcftools --gzvcf ${1} --max-missing 1 --recode --recode-INFO-all --out ${1}_nomissing.vcf
-vcftools --gzvcf ${1} --max-missing-count 10 --minQ 30 --recode --recode-INFO-all --stdout | gzip -c >  ./SulaSNPs.${2}_maxmissingcount_10_genoqual30.vcf.gz
+#vcftools --gzvcf ${1} --max-missing 1 --recode --recode-INFO-all --out ${1}_nomissing.vcf
+vcftools --gzvcf ${1} --max-missing-count 0 --minQ 30 --recode --recode-INFO-all --out SulaSNPs.${2}_maxmissingcount_0_genoqual30.vcf
 
-#bgzip -c ${1}_nomissing.vcf
-#bgzip -c ${1}_nomissing.vcf > ${1}_nomissing.vcf.gz
-bcftools index SulaSNPs.${2}_maxmissingcount_10_genoqual30.vcf.gz
-gatk --java-options -Xmx10G IndexFeatureFile -I SulaSNPs.${2}_maxmissingcount_10_genoqual30.vcf.gz
+#bgzip -c SulaSNPs.${2}_maxmissingcount_0_genoqual30.vcf
+bgzip -c SulaSNPs.${2}_maxmissingcount_0_genoqual30.vcf > SulaSNPs.${2}_maxmissingcount_0_genoqual30.vcf.gz
+bcftools index SulaSNPs.${2}_maxmissingcount_0_genoqual30.vcf.gz
+gatk --java-options -Xmx10G IndexFeatureFile -I SulaSNPs.${2}_maxmissingcount_0_genoqual30.vcf.gz
 ```
 Then I thinned, saving only positions that are at least 500 bp apart.
 ```
