@@ -141,3 +141,108 @@ module load StdEnv/2023 python/3.12.4
 # run the analyses for each chr
 /home/ben/.local/bin/admixfrog-ref --out Sula_only_MAU_TON_HEC_${2}.ref.xz --vcf-ref ${1} --state-file spops.yaml --states MAU TON HEC --chroms 1-20,X,Y
 ```
+OK now make targets for each sample and for each chromosome:
+```
+#!/bin/sh
+#SBATCH --job-name=admixfrog_target
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=1
+#SBATCH --time=4:00:00
+#SBATCH --mem=2gb
+#SBATCH --output=admixfrog_target.%J.out
+#SBATCH --error=admixfrog_target.%J.err
+#SBATCH --account=rrg-ben
+
+# BRU HEC MAU NEM SUM NGA NGE TOG TON
+
+# execute like this:
+# sbatch admixfrog_make_target_input.sh 
+
+module load StdEnv/2023 python/3.12.4
+# run the analyses for each chr
+/home/ben/.local/bin/admixfrog-bam --vcfgt SulaSNPs.Chr1_maxmissingcount_0_genoqual30.vcf.recode.vcf.gz_thinned.recode.vcf.gz --target ${1} --ref Sula_only_MAU_TON_HEC_Chr1.ref.xz --out ${1}_Chr1.in.xz --chroms 1-20,X,Y
+/home/ben/.local/bin/admixfrog-bam --vcfgt SulaSNPs.Chr2_maxmissingcount_0_genoqual30.vcf.recode.vcf.gz_thinned.recode.vcf.gz --target ${1} --ref Sula_only_MAU_TON_HEC_Chr2.ref.xz --out ${1}_Chr2.in.xz --chroms 1-20,X,Y
+/home/ben/.local/bin/admixfrog-bam --vcfgt SulaSNPs.Chr3_maxmissingcount_0_genoqual30.vcf.recode.vcf.gz_thinned.recode.vcf.gz --target ${1} --ref Sula_only_MAU_TON_HEC_Chr3.ref.xz --out ${1}_Chr3.in.xz --chroms 1-20,X,Y
+/home/ben/.local/bin/admixfrog-bam --vcfgt SulaSNPs.Chr4_maxmissingcount_0_genoqual30.vcf.recode.vcf.gz_thinned.recode.vcf.gz --target ${1} --ref Sula_only_MAU_TON_HEC_Chr4.ref.xz --out ${1}_Chr4.in.xz --chroms 1-20,X,Y
+/home/ben/.local/bin/admixfrog-bam --vcfgt SulaSNPs.Chr5_maxmissingcount_0_genoqual30.vcf.recode.vcf.gz_thinned.recode.vcf.gz --target ${1} --ref Sula_only_MAU_TON_HEC_Chr5.ref.xz --out ${1}_Chr5.in.xz --chroms 1-20,X,Y
+/home/ben/.local/bin/admixfrog-bam --vcfgt SulaSNPs.Chr6_maxmissingcount_0_genoqual30.vcf.recode.vcf.gz_thinned.recode.vcf.gz --target ${1} --ref Sula_only_MAU_TON_HEC_Chr6.ref.xz --out ${1}_Chr6.in.xz --chroms 1-20,X,Y
+/home/ben/.local/bin/admixfrog-bam --vcfgt SulaSNPs.Chr7_maxmissingcount_0_genoqual30.vcf.recode.vcf.gz_thinned.recode.vcf.gz --target ${1} --ref Sula_only_MAU_TON_HEC_Chr7.ref.xz --out ${1}_Chr7.in.xz --chroms 1-20,X,Y
+/home/ben/.local/bin/admixfrog-bam --vcfgt SulaSNPs.Chr8_maxmissingcount_0_genoqual30.vcf.recode.vcf.gz_thinned.recode.vcf.gz --target ${1} --ref Sula_only_MAU_TON_HEC_Chr8.ref.xz --out ${1}_Chr8.in.xz --chroms 1-20,X,Y
+/home/ben/.local/bin/admixfrog-bam --vcfgt SulaSNPs.Chr9_maxmissingcount_0_genoqual30.vcf.recode.vcf.gz_thinned.recode.vcf.gz --target ${1} --ref Sula_only_MAU_TON_HEC_Chr9.ref.xz --out ${1}_Chr9.in.xz --chroms 1-20,X,Y
+/home/ben/.local/bin/admixfrog-bam --vcfgt SulaSNPs.Chr10_maxmissingcount_0_genoqual30.vcf.recode.vcf.gz_thinned.recode.vcf.gz --target ${1} --ref Sula_only_MAU_TON_HEC_Chr10.ref.xz --out ${1}_Chr10.in.xz --chroms 1-20,X,Y
+/home/ben/.local/bin/admixfrog-bam --vcfgt SulaSNPs.Chr11_maxmissingcount_0_genoqual30.vcf.recode.vcf.gz_thinned.recode.vcf.gz --target ${1} --ref Sula_only_MAU_TON_HEC_Chr11.ref.xz --out ${1}_Chr11.in.xz --chroms 1-20,X,Y
+/home/ben/.local/bin/admixfrog-bam --vcfgt SulaSNPs.Chr12_maxmissingcount_0_genoqual30.vcf.recode.vcf.gz_thinned.recode.vcf.gz --target ${1} --ref Sula_only_MAU_TON_HEC_Chr12.ref.xz --out ${1}_Chr12.in.xz --chroms 1-20,X,Y
+/home/ben/.local/bin/admixfrog-bam --vcfgt SulaSNPs.Chr13_maxmissingcount_0_genoqual30.vcf.recode.vcf.gz_thinned.recode.vcf.gz --target ${1} --ref Sula_only_MAU_TON_HEC_Chr13.ref.xz --out ${1}_Chr13.in.xz --chroms 1-20,X,Y
+/home/ben/.local/bin/admixfrog-bam --vcfgt SulaSNPs.Chr14_maxmissingcount_0_genoqual30.vcf.recode.vcf.gz_thinned.recode.vcf.gz --target ${1} --ref Sula_only_MAU_TON_HEC_Chr14.ref.xz --out ${1}_Chr14.in.xz --chroms 1-20,X,Y
+/home/ben/.local/bin/admixfrog-bam --vcfgt SulaSNPs.Chr15_maxmissingcount_0_genoqual30.vcf.recode.vcf.gz_thinned.recode.vcf.gz --target ${1} --ref Sula_only_MAU_TON_HEC_Chr15.ref.xz --out ${1}_Chr15.in.xz --chroms 1-20,X,Y
+/home/ben/.local/bin/admixfrog-bam --vcfgt SulaSNPs.Chr16_maxmissingcount_0_genoqual30.vcf.recode.vcf.gz_thinned.recode.vcf.gz --target ${1} --ref Sula_only_MAU_TON_HEC_Chr16.ref.xz --out ${1}_Chr16.in.xz --chroms 1-20,X,Y
+/home/ben/.local/bin/admixfrog-bam --vcfgt SulaSNPs.Chr17_maxmissingcount_0_genoqual30.vcf.recode.vcf.gz_thinned.recode.vcf.gz --target ${1} --ref Sula_only_MAU_TON_HEC_Chr17.ref.xz --out ${1}_Chr17.in.xz --chroms 1-20,X,Y
+/home/ben/.local/bin/admixfrog-bam --vcfgt SulaSNPs.Chr18_maxmissingcount_0_genoqual30.vcf.recode.vcf.gz_thinned.recode.vcf.gz --target ${1} --ref Sula_only_MAU_TON_HEC_Chr18.ref.xz --out ${1}_Chr18.in.xz --chroms 1-20,X,Y
+/home/ben/.local/bin/admixfrog-bam --vcfgt SulaSNPs.Chr19_maxmissingcount_0_genoqual30.vcf.recode.vcf.gz_thinned.recode.vcf.gz --target ${1} --ref Sula_only_MAU_TON_HEC_Chr19.ref.xz --out ${1}_Chr19.in.xz --chroms 1-20,X,Y
+/home/ben/.local/bin/admixfrog-bam --vcfgt SulaSNPs.Chr20_maxmissingcount_0_genoqual30.vcf.recode.vcf.gz_thinned.recode.vcf.gz --target ${1} --ref Sula_only_MAU_TON_HEC_Chr20.ref.xz --out ${1}_Chr20.in.xz --chroms 1-20,X,Y
+/home/ben/.local/bin/admixfrog-bam --vcfgt SulaSNPs.ChrX_maxmissingcount_0_genoqual30.vcf.recode.vcf.gz_thinned.recode.vcf.gz --target ${1} --ref Sula_only_MAU_TON_HEC_ChrX.ref.xz --out ${1}_ChrX.in.xz --chroms 1-20,X,Y
+/home/ben/.local/bin/admixfrog-bam --vcfgt SulaSNPs.ChrY_maxmissingcount_0_genoqual30.vcf.recode.vcf.gz_thinned.recode.vcf.gz --target ${1} --ref Sula_only_MAU_TON_HEC_ChrY.ref.xz --out ${1}_ChrY.in.xz --chroms 1-20,X,Y
+```
+Ok now do the analysis for each sample and for each chromosome:
+```
+#!/bin/sh
+#SBATCH --job-name=admixfrog_analysis
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=1
+#SBATCH --time=6:00:00
+#SBATCH --mem=2gb
+#SBATCH --output=admixfrog_analysis.%J.out
+#SBATCH --error=admixfrog_analysis.%J.err
+#SBATCH --account=rrg-ben
+
+# BRU HEC MAU NEM SUM NGA NGE TOG TON
+
+# execute like this:
+# sbatch admixfrog_do_analysis.sh 
+
+module load StdEnv/2023 python/3.12.4
+# run the analyses for each chr
+/home/ben/.local/bin/admixfrog --infile ${1}_Chr1.in.xz --ref Sula_only_MAU_TON_HEC_Chr1.ref.xz --out ${1}_Chr1_MAU_TON_HEC.out -b 10000 --states MAU TON HEC --c0 0 --dont-est-contamination
+
+/home/ben/.local/bin/admixfrog --infile ${1}_Chr2.in.xz --ref Sula_only_MAU_TON_HEC_Chr1.ref.xz --out ${1}_Chr2_MAU_TON_HEC.out -b 10000 --states MAU TON HEC --c0 0 --dont-est-contamination
+
+/home/ben/.local/bin/admixfrog --infile ${1}_Chr3.in.xz --ref Sula_only_MAU_TON_HEC_Chr1.ref.xz --out ${1}_Chr3_MAU_TON_HEC.out -b 10000 --states MAU TON HEC --c0 0 --dont-est-contamination
+
+/home/ben/.local/bin/admixfrog --infile ${1}_Chr4.in.xz --ref Sula_only_MAU_TON_HEC_Chr1.ref.xz --out ${1}_Chr4_MAU_TON_HEC.out -b 10000 --states MAU TON HEC --c0 0 --dont-est-contamination
+
+/home/ben/.local/bin/admixfrog --infile ${1}_Chr5.in.xz --ref Sula_only_MAU_TON_HEC_Chr1.ref.xz --out ${1}_Chr5_MAU_TON_HEC.out -b 10000 --states MAU TON HEC --c0 0 --dont-est-contamination
+
+/home/ben/.local/bin/admixfrog --infile ${1}_Chr6.in.xz --ref Sula_only_MAU_TON_HEC_Chr1.ref.xz --out ${1}_Chr6_MAU_TON_HEC.out -b 10000 --states MAU TON HEC --c0 0 --dont-est-contamination
+
+/home/ben/.local/bin/admixfrog --infile ${1}_Chr7.in.xz --ref Sula_only_MAU_TON_HEC_Chr1.ref.xz --out ${1}_Chr7_MAU_TON_HEC.out -b 10000 --states MAU TON HEC --c0 0 --dont-est-contamination
+
+/home/ben/.local/bin/admixfrog --infile ${1}_Chr8.in.xz --ref Sula_only_MAU_TON_HEC_Chr1.ref.xz --out ${1}_Chr8_MAU_TON_HEC.out -b 10000 --states MAU TON HEC --c0 0 --dont-est-contamination
+
+/home/ben/.local/bin/admixfrog --infile ${1}_Chr9.in.xz --ref Sula_only_MAU_TON_HEC_Chr1.ref.xz --out ${1}_Chr9_MAU_TON_HEC.out -b 10000 --states MAU TON HEC --c0 0 --dont-est-contamination
+
+/home/ben/.local/bin/admixfrog --infile ${1}_Chr10.in.xz --ref Sula_only_MAU_TON_HEC_Chr1.ref.xz --out ${1}_Chr10_MAU_TON_HEC.out -b 10000 --states MAU TON HEC --c0 0 --dont-est-contamination
+
+/home/ben/.local/bin/admixfrog --infile ${1}_Chr11.in.xz --ref Sula_only_MAU_TON_HEC_Chr1.ref.xz --out ${1}_Chr11_MAU_TON_HEC.out -b 10000 --states MAU TON HEC --c0 0 --dont-est-contamination
+
+/home/ben/.local/bin/admixfrog --infile ${1}_Chr12.in.xz --ref Sula_only_MAU_TON_HEC_Chr1.ref.xz --out ${1}_Chr12_MAU_TON_HEC.out -b 10000 --states MAU TON HEC --c0 0 --dont-est-contamination
+
+/home/ben/.local/bin/admixfrog --infile ${1}_Chr13.in.xz --ref Sula_only_MAU_TON_HEC_Chr1.ref.xz --out ${1}_Chr13_MAU_TON_HEC.out -b 10000 --states MAU TON HEC --c0 0 --dont-est-contamination
+
+/home/ben/.local/bin/admixfrog --infile ${1}_Chr14.in.xz --ref Sula_only_MAU_TON_HEC_Chr1.ref.xz --out ${1}_Chr14_MAU_TON_HEC.out -b 10000 --states MAU TON HEC --c0 0 --dont-est-contamination
+
+/home/ben/.local/bin/admixfrog --infile ${1}_Chr15.in.xz --ref Sula_only_MAU_TON_HEC_Chr1.ref.xz --out ${1}_Chr15_MAU_TON_HEC.out -b 10000 --states MAU TON HEC --c0 0 --dont-est-contamination
+
+/home/ben/.local/bin/admixfrog --infile ${1}_Chr16.in.xz --ref Sula_only_MAU_TON_HEC_Chr1.ref.xz --out ${1}_Chr16_MAU_TON_HEC.out -b 10000 --states MAU TON HEC --c0 0 --dont-est-contamination
+
+/home/ben/.local/bin/admixfrog --infile ${1}_Chr17.in.xz --ref Sula_only_MAU_TON_HEC_Chr1.ref.xz --out ${1}_Chr17_MAU_TON_HEC.out -b 10000 --states MAU TON HEC --c0 0 --dont-est-contamination
+
+/home/ben/.local/bin/admixfrog --infile ${1}_Chr18.in.xz --ref Sula_only_MAU_TON_HEC_Chr1.ref.xz --out ${1}_Chr18_MAU_TON_HEC.out -b 10000 --states MAU TON HEC --c0 0 --dont-est-contamination
+
+/home/ben/.local/bin/admixfrog --infile ${1}_Chr19.in.xz --ref Sula_only_MAU_TON_HEC_Chr1.ref.xz --out ${1}_Chr19_MAU_TON_HEC.out -b 10000 --states MAU TON HEC --c0 0 --dont-est-contamination
+
+/home/ben/.local/bin/admixfrog --infile ${1}_Chr20.in.xz --ref Sula_only_MAU_TON_HEC_Chr1.ref.xz --out ${1}_Chr20_MAU_TON_HEC.out -b 10000 --states MAU TON HEC --c0 0 --dont-est-contamination
+
+/home/ben/.local/bin/admixfrog --infile ${1}_ChrX.in.xz --ref Sula_only_MAU_TON_HEC_Chr1.ref.xz --out ${1}_ChrX_MAU_TON_HEC.out -b 10000 --states MAU TON HEC --c0 0 --dont-est-contamination
+
+/home/ben/.local/bin/admixfrog --infile ${1}_ChrY.in.xz --ref Sula_only_MAU_TON_HEC_Chr1.ref.xz --out ${1}_ChrY_MAU_TON_HEC.out -b 10000 --states MAU TON HEC --c0 0 --dont-est-contamination
+```
