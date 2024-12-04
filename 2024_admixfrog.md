@@ -335,7 +335,7 @@ module load StdEnv/2023 python/3.12.4
 /home/ben/.local/bin/admixfrog-bam --vcfgt SulaSNPs.ChrX_maxmissingcount_0_genoqual30.vcf.recode.vcf.gz_thinned.recode.vcf.gz --target ${1} --ref Sula_only_MAU_TON_HEC_ChrX.ref.xz --out ${1}_ChrX.in.xz --chroms 1-20,X,Y
 /home/ben/.local/bin/admixfrog-bam --vcfgt SulaSNPs.ChrY_maxmissingcount_0_genoqual30.vcf.recode.vcf.gz_thinned.recode.vcf.gz --target ${1} --ref Sula_only_MAU_TON_HEC_ChrY.ref.xz --out ${1}_ChrY.in.xz --chroms 1-20,X,Y
 ```
-Ok now do the analysis for each sample and for each chromosome:
+Ok now do the analysis for each sample and for each chromosome; note that I had to use "--female" for the sex chromosomes to force them to be diploid for everyone because the "--male" option is broken (according to the help menu) and it would not work for the X without this.
 ```
 #!/bin/sh
 #SBATCH --job-name=admixfrog_analysis
@@ -394,7 +394,7 @@ module load StdEnv/2023 python/3.12.4
 
 /home/ben/.local/bin/admixfrog --infile ${1}_Chr20.in.xz --ref Sula_only_MAU_TON_HEC_Chr20.ref.xz --out ${1}_Chr20_MAU_TON_HEC.oout -b 10000 --states MAU TON HEC --c0 0 --dont-est-contamination
 
-/home/ben/.local/bin/admixfrog --infile ${1}_ChrX.in.xz --ref Sula_only_MAU_TON_HEC_ChrX.ref.xz --out ${1}_ChrX_MAU_TON_HEC.oout -b 10000 --states MAU TON HEC --c0 0 --dont-est-contamination
+/home/ben/.local/bin/admixfrog --infile ${1}_ChrX.in.xz --ref Sula_only_MAU_TON_HEC_ChrX.ref.xz --out ${1}_ChrX_MAU_TON_HEC.oout -b 10000 --states MAU TON HEC --c0 0 --dont-est-contamination --female
 
-/home/ben/.local/bin/admixfrog --infile ${1}_ChrY.in.xz --ref Sula_only_MAU_TON_HEC_ChrY.ref.xz --out ${1}_ChrY_MAU_TON_HEC.oout -b 10000 --states MAU TON HEC --c0 0 --dont-est-contamination
+/home/ben/.local/bin/admixfrog --infile ${1}_ChrY.in.xz --ref Sula_only_MAU_TON_HEC_ChrY.ref.xz --out ${1}_ChrY_MAU_TON_HEC.oout -b 10000 --states MAU TON HEC --c0 0 --dont-est-contamination --female
 ```
