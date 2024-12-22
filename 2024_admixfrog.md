@@ -398,3 +398,282 @@ module load StdEnv/2023 python/3.12.4
 
 /home/ben/.local/bin/admixfrog --infile ${1}_ChrY.in.xz --ref Sula_only_MAU_TON_HEC_ChrY.ref.xz --out ${1}_ChrY_MAU_TON_HEC.oout -b 10000 --states MAU TON HEC --c0 0 --dont-est-contamination --female
 ```
+
+# Square plot
+
+```
+## Working directory
+setwd("/Users/Shared/Previously Relocated Items/Security/projects/2023_macaque_genomes/2024_macaques/admixfrog")
+library(tidyverse)
+library(ggplot2)
+library(circlize)
+library(dplyr)
+library(stringr)
+library(data.table)
+# https://jokergoo.github.io/circlize_book/book/initialize-genomic-plot.html
+# https://cran.r-project.org/web/packages/circlize/circlize.pdf
+# initilize
+rm(list=ls()) # removes all variables
+
+
+#MAU
+#sample_vector <- c("s103291","s103275","s103283","s103302","s105212","s105213","SAMN07508142","SAMN07508143","SAMN07508144","SAMN07508145","SAMN07508146","s103270","s103278","s103247","s103206","s103214","s103222","s103230","s103238","s103246","s103286","s103215","s103255","s103271","s103279","s103200")
+#pop <- "MAU"
+
+#TON
+sample_vector <- c("s105223","s105222","s105225","s105226","s103318","s105206","s105178","s105183","s105184","s105185","s105199","s105200","s105201","s103303","s103319","s103327","s103335","s103312","s103320","SAMN07503429","SAMN18571130","SAMN18571131","SAMN18571132","SAMN18571133","s103235","s103243","s103251","s103267")
+pop <- "TON"
+
+#HEC
+# sample_vector <- c("s103306","s103314","SAMN07508136","s103346","s105180","SAMN07508138","SAMN18570967","SAMN18570968")
+# pop <- "HEC"
+
+#MTH
+# sample_vector <- c("s103294","s103260","s105211","s105215","s103212","s103228","s103264","s103280","s103288","s103272","s103209","s103233","s103202","s103258")
+# pop <- "MTH"
+
+#TMH
+# sample_vector <- c("s103204","s105210","s103252","s103313","s105214","s103224","s103274","s103282","s103219","s103226","s103266","s103273","s103281","s103289","s103227","s103249","s103257","s103265","s103210","s103234","s103203","s103211","s103259")
+# pop <- "TMH"
+
+#HTH
+# sample_vector <- c("s105224","s105181","s105179","SAMN18571119")
+# pop <- "HTH"
+
+#TOG
+# sample_vector <- c("s105187","s103334","s105188","s105190","s105191","s105194","s105198","s103326","s105186","s105192","s105193","s105195","s105196","s103374","s105197","SAMN07508162")
+# pop <- "TOG"
+
+#OCH
+# sample_vector <- c("s105202","s105203","s105205","s105207","s105204","s105208","s105209")
+# pop <- "OCH"
+
+#NGE
+# sample_vector <- c("s103315","SAMN07508157","SAMN18570966")
+# pop <- "NGE"
+
+#NGA
+# sample_vector <- c("s103391","s103371","SAMN07503430","SAMN07508155","SAMN07508156")
+# pop <- "NGA"
+
+# BRU
+# sample_vector <- c("SAMN07508135")
+# pop <- "BRU"
+
+analysis <-"_MAU_TON_HEC"
+chrs <- factor(c("Chr1","Chr2","Chr3","Chr4","Chr5","Chr6","Chr7","Chr8","Chr9",
+         "Chr10","Chr11","Chr12","Chr13","Chr14","Chr15","Chr16","Chr17","Chr18","Chr19","Chr20","ChrX"))
+
+
+# this is a list of chr lengths
+chr_length_list = list("1" = 223616942,
+                       "2" = 196197964,
+                       "3" = 185288947,
+                       "4" = 169963040,
+                       "5" = 187317192,
+                       "6" = 179085566,
+                       "7" = 169868564,
+                       "8" = 145679320,
+                       "9" = 134124166,
+                       "10" = 99517758,
+                       "11" = 133066086,
+                       "12" = 130043856,
+                       "13" = 108737130,
+                       "14" = 128056306,
+                       "15" = 113283604,
+                       "16" = 79627064,
+                       "17" = 95433459,
+                       "18" = 74474043,
+                       "19" = 58315233,
+                       "20" = 77137495,
+                       "X" = 153388924
+                       # Y = 11753682
+)
+
+# this is a vector of chr lenths
+begins <- rep(1,21)
+ends = c(223616942,
+         196197964,
+         185288947,
+         169963040,
+         187317192,
+         179085566,
+         169868564,
+         145679320,
+         134124166,
+         99517758,
+         133066086,
+         130043856,
+         108737130,
+         128056306,
+         113283604,
+         79627064,
+         95433459,
+         74474043,
+         58315233,
+         77137495,
+         153388924)
+
+# this is needed to initalize the graph below
+chr_lengths <- cbind(begins,ends)
+
+# chr names
+chr_names <- c("Chr1","Chr2","Chr3","Chr4","Chr5","Chr6","Chr7","Chr8","Chr9","Chr10",
+               "Chr11","Chr12","Chr13","Chr14","Chr15","Chr16","Chr17","Chr18","Chr19",
+               "Chr20","ChrX")
+chr_names_ordered <- factor(chr_names, ordered = TRUE, 
+                            levels = c("Chr1","Chr2","Chr3","Chr4","Chr5","Chr6","Chr7","Chr8","Chr9","Chr10",
+                                       "Chr11","Chr12","Chr13","Chr14","Chr15","Chr16","Chr17","Chr18","Chr19",
+                                       "Chr20","ChrX"))
+
+chr_names_ordered_simple <- factor(chr_names, ordered = TRUE, 
+                                   levels = c("1","2","3","4","5","6","7","8","9","10",
+                                              "11","12","13","14","15","16","17","18","19","20",
+                                              "X"))
+
+
+# loop through each sample
+for (sample in sample_vector){
+  # sample <- 's105223'
+  # loop through chrs
+  for(i in levels(chrs)){
+    print(eval(i))
+    a <- read_csv(paste(eval(sample), "_",i,eval(analysis),".oout.bin.xz", sep=""))
+    # a <- read_csv("s105224_Chr1_MAU_TON_HEC.oout.bin.xz")
+    assign(i,a)
+  }  
+
+  # rename chromosome column
+  Chr1$chrom <- "1"
+  Chr2$chrom <- "2"
+  Chr3$chrom <- "3"
+  Chr4$chrom <- "4"
+  Chr5$chrom <- "5"
+  Chr6$chrom <- "6"
+  Chr7$chrom <- "7"
+  Chr8$chrom <- "8"
+  Chr9$chrom <- "9"
+  Chr10$chrom <- "10"
+  Chr11$chrom <- "11"
+  Chr12$chrom <- "12"
+  Chr13$chrom <- "13"
+  Chr14$chrom <- "14"
+  Chr15$chrom <- "15"
+  Chr16$chrom <- "16"
+  Chr17$chrom <- "17"
+  Chr18$chrom <- "18"
+  Chr19$chrom <- "19"
+  Chr20$chrom <- "20"
+  ChrX$chrom <- "X"
+  
+  Allchrs <- rbind(Chr1,Chr2,Chr3,Chr4,Chr5,Chr6,Chr7,Chr8,Chr9,Chr10,
+                   Chr11,Chr12,Chr13,Chr14,Chr15,Chr16,Chr17,Chr18,Chr19,
+                   Chr20,ChrX)
+  
+  # make the chr a factor so we can use it for faceting
+  Allchrs$chrom <- as.factor(Allchrs$chrom)
+  
+  # make a dataframe for circular plotting
+  Allchr_circular <- as.data.frame(Allchrs[,c(1,3,8,9,10,11,12,13)])
+  # create end coordinates based on next start site and have NA for last start site
+  Allchr_circular$end <- c(Allchr_circular$pos[-1]-1, NA)
+  #View(Allchr_circular)
+  # check for changes in chr at the last window
+  temp <- ifelse(Allchr_circular$end != Allchr_circular$pos + 99999,
+                                Allchr_circular$pos+99999,
+                                Allchr_circular$end)
+  # add this to the dataframe
+  Allchr_circular$end <- temp
+  # make an entry for last end positioin 
+  Allchr_circular$end[nrow(Allchr_circular)]<-Allchr_circular$pos[nrow(Allchr_circular)]+99999
+  #View(Allchr_circular)
+  # Now fix the first entry of each chr
+  Allchr_circular$end <- ifelse(Allchr_circular$pos < 99999,
+                                99999,
+                                Allchr_circular$end)
+  
+  # reorder the columns
+  Allchr_circular <- Allchr_circular[, c(1,2,9,3,4,5,6,7,8)]
+  names(Allchr_circular)[names(Allchr_circular) == "pos"] <- "start"
+  # ok looks good
+  Allchr_circular$sample <- sample
+  if(sample == sample_vector[1]){
+    # make a big df
+    big_monkey_df <- data.frame(matrix(ncol = 10, nrow = 0))
+    colnames(big_monkey_df) <- colnames(Allchr_circular)
+  }
+  # now bind this to the big_monkey_df
+  big_monkey_df <- rbind(big_monkey_df,Allchr_circular)
+
+long_big_monkey_df <- melt(setDT(big_monkey_df[,-3]), id.vars = c("chrom","start","sample"), variable.name = "ancestry")
+
+long_big_monkey_df$color[long_big_monkey_df$ancestry == "MAU" ] <- "yellow"
+long_big_monkey_df$color[long_big_monkey_df$ancestry == "TON" ] <- "red"
+long_big_monkey_df$color[long_big_monkey_df$ancestry == "HEC" ] <- "blue"
+long_big_monkey_df$color[long_big_monkey_df$ancestry == "MAUTON" ] <- "orange"
+long_big_monkey_df$color[long_big_monkey_df$ancestry == "MAUHEC" ] <- "black"
+long_big_monkey_df$color[long_big_monkey_df$ancestry == "TONHEC" ] <- "purple"
+
+long_big_monkey_df$color <- factor(long_big_monkey_df$color, ordered = TRUE, 
+                                   levels = c("yellow","orange","red","purple","blue","black"))
+long_big_monkey_df$chrom <- factor(long_big_monkey_df$chrom, ordered = TRUE, 
+                                   levels = c("1","2","3","4","5","6","7","8","9","10",
+                                              "11","12","13","14","15","16","17","18","19","20",
+                                              "X"))
+
+}
+
+# get rid of rows with zero probability that do not need to be plotted
+long_big_monkey_df_smaller <- long_big_monkey_df[long_big_monkey_df$value != 0.0e+00 ]
+
+# temp <- long_big_monkey_df_smaller[long_big_monkey_df_smaller$sample == "s103291" ]
+
+# fiddle with x axis tics
+# limits_fun <- function(x) {
+#  if (max(x) < 150) {  # This will identify the current "Wind" panel
+#    seq(0, 100, by = 100)  # New limits for the "Wind" panel
+#  } else if (max(x) < 250) {  # This will identify the current "Temp" panel
+#    seq(0, 200, by = 100)  # New limits for the "Temp" panel
+#  } 
+# }
+
+ 
+
+png(paste(eval(pop),eval(analysis),"_stacked.png",sep=""),
+    width = 1500, height = eval(length(sample_vector))*35, units='mm', res = 300) 
+    # adjust the height depending on the number of samples
+   #  ggplot(long_big_monkey_df, aes(x = start, y = value, fill = ancestry, color = color)) + 
+  # ggplot(temp %>% arrange(sample,chrom),   
+  ggplot(long_big_monkey_df_smaller %>% arrange(sample,chrom), 
+            aes(x = start/1000000, y = value, fill = ancestry)) + 
+        geom_bar(position='fill', stat='identity') +
+    #scale_fill_brewer(type = "seq", palette = 6) +
+    scale_fill_manual(name="Ancestry", values = c("MAU"="yellow",
+                                                    "MAUTON"="orange",
+                                                    "TON"="red",
+                                                    "TONHEC"="purple",
+                                                    "HEC"="blue",
+                                                    "MAUHEC"="black"),
+      breaks=c("MAU","MAUTON","TON","TONHEC","HEC","MAUHEC"),
+      labels=c("MAU","MAUTON","TON","TONHEC","HEC","MAUHEC"))+
+      # facet_wrap(sample ~ chrom, ncol=21, scale="free_x")+
+      facet_grid(sample ~ chrom, scales = "free", space="free") +
+      # scale_x_continuous(breaks = limits_fun) +
+      scale_x_continuous(breaks = c(0,100,200)) +
+      scale_y_continuous(breaks = c(0,1)) +
+      labs(x = "Chromosome and Coordinates (100Mb)", y = "Probability") +
+      theme_classic(base_size = 38) + 
+      # guides(color = FALSE) +
+      theme(panel.grid.minor=element_blank(),panel.grid.major=element_blank())+
+      theme(strip.text.y.right = element_text(angle = 0)) +
+      theme(strip.background = element_blank()) +
+      guides(fill=guide_legend(title="Ancestry")) +
+      ggtitle(eval(pop))
+      # +
+      # Change horizontal spacing between facets
+      # theme(panel.spacing.x = unit(0.5, "lines")) +
+      # Change vertical spacing between facets
+      # theme(panel.spacing.y = unit(0.5, "lines"))
+dev.off()
+
+```
