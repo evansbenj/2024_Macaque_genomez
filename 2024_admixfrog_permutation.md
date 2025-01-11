@@ -86,7 +86,7 @@ my $n_introgression_blocks_without_genez=0;
 my $n_Ninteract_genes_on_introgression_blockz=0;
 my $n_genes_on_introgression_blockz=0;
 my $n_genes_on_non_introgression_blockz=0;
-my $admixfrog_block_size=30000; # the 2024 admixfrog blocks are 10000 bp
+my $admixfrog_block_size=30000; # the 2024 admixfrog blocks are 30000 bp
 my %introgression_blocks;
 my @Ninteract_genez_on_one_or_more_admixture_block;
 my %perm_blockz; 
@@ -211,6 +211,7 @@ print OUTFILE "Number of genes on introgression blocks: ",$n_genes_on_introgress
 print "Number of Ninteract genes with at least a portion on at least one admixture block: ",$#Ninteract_genez_on_one_or_more_admixture_block+1,"\n";
 print OUTFILE "Number of Ninteract genes with at least a portion on at least one admixture block: ",$#Ninteract_genez_on_one_or_more_admixture_block+1,"\n";
 
+
 if(($n_introgression_blocks_with_interacting_genez+$n_introgression_blocks_with_other_genez)>0){
 	print "Proportion of introgression blocks with genes that have N_interact genes ",$n_introgression_blocks_with_interacting_genez/
 	($n_introgression_blocks_with_interacting_genez+$n_introgression_blocks_with_other_genez),"\n";
@@ -241,7 +242,8 @@ if(($n_introgression_blocks_with_interacting_genez+$n_introgression_blocks_with_
 
 	my $Ngenez_on_blockz=0;
 	my @quick_perm_genez;
-
+	print "yo ",$n_genes_on_introgression_blockz,"\n";
+	print "hey ",@interact_perm,"\n";
 	for ($y = 0 ; $y < $perms; $y++ ) {
 		$Ngenez_on_blockz=0;
 		fisher_yates_shuffle( \@interact_perm );    # permutes the N_interact assignment for each gene
@@ -258,16 +260,17 @@ if(($n_introgression_blocks_with_interacting_genez+$n_introgression_blocks_with_
 	if($#quick_perm_genez != $perms-1){
 		print "Hey, something wrong with perms\n";
 	}
-	my $test_stat2 = $n_Ninteract_genes_on_introgression_blockz/$n_genes_on_introgression_blockz;
+	my $test_stat2 = ($#Ninteract_genez_on_one_or_more_admixture_block+1)/$n_genes_on_introgression_blockz;
 
 	my @quick_perm_genez_sorted = sort { $a <=> $b } @quick_perm_genez;
 	my $switch=0;
 	my $pval=0;
 	$counter=0;
-	# print "@quick_perm_genez_sorted\n";
+
+	print "@quick_perm_genez_sorted\n";
 	# now figure out where the test stat is
 	for ($y = 0 ; $y <= $#quick_perm_genez_sorted; $y++ ) {
-		if(($test_stat2 <= $quick_perm_genez_sorted[$y])&&($switch==0)){ # use for PF626; test stat is zero
+		if(($test_stat2 <= $quick_perm_genez_sorted[$y])&&($switch==0)){
 			print $counter," out of ",$perms," permutations have a smaller number of Ninteract genes in introgression blocks.\n";
 			print OUTFILE $counter," out of ",$perms," permutations have a smaller number of Ninteract genes in introgression blocks.\n";
 			$pval=$counter;
@@ -275,21 +278,16 @@ if(($n_introgression_blocks_with_interacting_genez+$n_introgression_blocks_with_
 		}
 		$counter+=1;
 	}
-	if($switch==0){
+	if($switch==0){ # this means that all of the perms were less than the test stat
 		print $counter," out of ",$perms," permutations have a smaller number of Ninteract genes in introgression blocks.\n";
 		print OUTFILE $counter," out of ",$perms," permutations have a smaller number of Ninteract genes in introgression blocks.\n";
+		$pval = $counter;
 	}
-	# if all the perms are less than the test stat, then
-	# we still need to set pval to be equal to the number of
-	# perms
-	if($counter == $perms){
-	    $pval = $counter;
-	}
-		
+
 	print "Test stat:",$test_stat2,"\n";
-	print "QuickP = ",$pval/$perms,"\n";
+	print "QuickP = ",1-($pval/$perms),"\n";
 	print OUTFILE "Test stat:",$test_stat2,"\n";
-	print OUTFILE "QuickP = ",1-$pval/$perms,"\n";
+	print OUTFILE "QuickP = ",1-($pval/$perms),"\n";
 
 
 }
@@ -298,11 +296,15 @@ else{
 	print OUTFILE "Permutations not performed because there are no introgression blocks that have genes.\n";
 }	
 
+
+
 ######################
 # Another option would be to do the permutations
 # using the proportion of admixture blocks that have 
 # part of an Ninteract gene as the test statistic
 ######################
+
+
 
 # fisher_yates_shuffle( \@array ) : 
     # generate a random permutation of @array in place
@@ -316,5 +318,7 @@ else{
         }
     }
 
+
 close OUTFILE;
+
 ```
