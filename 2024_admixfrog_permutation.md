@@ -21,16 +21,27 @@ use warnings;
 # then scramble them and check how many are expected by chance.
 
 # run like this:
-# ../../Introgression_block_permutation_heteroz_introgression.pl rheMac10.ncbiRefSeq.CDS.marked.corrected.new.out 3 s105224_PM500_concatforperms.txt
+# perl 2024_Introgression_block_permutation_homoz_introgression.pl rheMac10.ncbiRefSeq.CDS.marked.corrected.new.out 3 s105224_PM500_concatforperms.txt
 
 # where the second argument (3 in the example above) is the species column that is the same as the mtDNA
 
 # make the concatenated file like this:
 # xzcat s105224_Chr1_MAU_TON_HEC.oout.bin.xz s105224_Chr2_MAU_TON_HEC.oout.bin.xz s105224_Chr3_MAU_TON_HEC.oout.bin.xz s105224_Chr4_MAU_TON_HEC.oout.bin.xz s105224_Chr5_MAU_TON_HEC.oout.bin.xz s105224_Chr6_MAU_TON_HEC.oout.bin.xz s105224_Chr7_MAU_TON_HEC.oout.bin.xz s105224_Chr8_MAU_TON_HEC.oout.bin.xz s105224_Chr9_MAU_TON_HEC.oout.bin.xz s105224_Chr10_MAU_TON_HEC.oout.bin.xz s105224_Chr11_MAU_TON_HEC.oout.bin.xz s105224_Chr12_MAU_TON_HEC.oout.bin.xz s105224_Chr13_MAU_TON_HEC.oout.bin.xz s105224_Chr14_MAU_TON_HEC.oout.bin.xz s105224_Chr15_MAU_TON_HEC.oout.bin.xz s105224_Chr16_MAU_TON_HEC.oout.bin.xz s105224_Chr17_MAU_TON_HEC.oout.bin.xz s105224_Chr18_MAU_TON_HEC.oout.bin.xz s105224_Chr19_MAU_TON_HEC.oout.bin.xz s105224_Chr20_MAU_TON_HEC.oout.bin.xz > s105224_PM500_concatforperms.txt
 
+
+
 my $inputfile1 = $ARGV[0];
 my $inputfile2 = $ARGV[1];
 my $inputfile3 = $ARGV[2];
+my $outputfile = $inputfile3."_perms.oout";
+
+print $outputfile,"\n";
+
+unless (open(OUTFILE, ">$outputfile"))  {
+	print "I can\'t write to $outputfile\n";
+	exit;
+}
+print "Creating output file: $outputfile\n";
 
 my @windowsites;
 my @Fst_values;
@@ -75,7 +86,7 @@ my $n_introgression_blocks_without_genez=0;
 my $n_Ninteract_genes_on_introgression_blockz=0;
 my $n_genes_on_introgression_blockz=0;
 my $n_genes_on_non_introgression_blockz=0;
-my $admixfrog_block_size=10000; # the 2024 admixfrog blocks are 10000 bp
+my $admixfrog_block_size=30000; # the 2024 admixfrog blocks are 10000 bp
 my %introgression_blocks;
 my @Ninteract_genez_on_one_or_more_admixture_block;
 my %perm_blockz; 
@@ -130,6 +141,7 @@ while ( my $line = <DATAINPUT3>) {
 							$introgression_blocks{$temp[0]."_".($temp[1]*1000000)}{"interacting"} = 1; # this records overlap with any portion of an Ninteract genes 
 							# key is chr and end; value is Ninteract or not
 							print $N_interact_hash{$key}{"gene"}," is in introgression block ",$temp[0]."_".($temp[1]*1000000),"\n";
+							print OUTFILE $N_interact_hash{$key}{"gene"}," is in introgression block ",$temp[0]."_".($temp[1]*1000000),"\n";
 							$n_Ninteract_genes_on_introgression_blockz+=1; 
 							# note that this will count one gene multiple times if it spans multiple admixture blocks
 							push (@Ninteract_genez_on_one_or_more_admixture_block,$N_interact_hash{$key}{"gene"});
@@ -170,26 +182,42 @@ foreach my $key (keys %introgression_blocks){
 
 # get the unique Ninteract genes that are in one or more admixture blocks
 print "This is the number of introgression blocks that overlap with at least a portion of an Ninteract genes ",$#Ninteract_genez_on_one_or_more_admixture_block+1,"\n"; 
+print OUTFILE "This is the number of introgression blocks that overlap with at least a portion of an Ninteract genes ",$#Ninteract_genez_on_one_or_more_admixture_block+1,"\n"; 
 my %seen;
 @Ninteract_genez_on_one_or_more_admixture_block = grep { ! $seen{ $_ }++ } @Ninteract_genez_on_one_or_more_admixture_block;
 print "This is the number of Ninteract genes that are on at least one admixture block ",$#Ninteract_genez_on_one_or_more_admixture_block+1,"\n"; 
+print OUTFILE "This is the number of Ninteract genes that are on at least one admixture block ",$#Ninteract_genez_on_one_or_more_admixture_block+1,"\n"; 
 print "This can be more than the number of admixture block with one or more N_interact genes because some admixture blocks can have more than one Ninteract gene\n"; 
+print OUTFILE "This can be more than the number of admixture block with one or more N_interact genes because some admixture blocks can have more than one Ninteract gene\n"; 
 
 print "These are the Ninteract genes that are on at least one admixture block  @Ninteract_genez_on_one_or_more_admixture_block\n"; 	
+print OUTFILE "These are the Ninteract genes that are on at least one admixture block  @Ninteract_genez_on_one_or_more_admixture_block\n"; 	
+
 
 print "Number of introgression blocks with one or more N_interact genes: ",$n_introgression_blocks_with_interacting_genez,"\n";
+print OUTFILE"Number of introgression blocks with one or more N_interact genes: ",$n_introgression_blocks_with_interacting_genez,"\n";
+
 print "Number of Ninteract genes on introgression blocks ",$n_Ninteract_genes_on_introgression_blockz,"\n";
+print OUTFILE "Number of Ninteract genes on introgression blocks ",$n_Ninteract_genes_on_introgression_blockz,"\n";
 
 print "Number of introgression blocks with other genes: ",$n_introgression_blocks_with_other_genez,"\n";
 print "Number of introgression blocks without genes: ",$n_introgression_blocks_without_genez,"\n";
+print OUTFILE "Number of introgression blocks with other genes: ",$n_introgression_blocks_with_other_genez,"\n";
+print OUTFILE "Number of introgression blocks without genes: ",$n_introgression_blocks_without_genez,"\n";
 
 print "Number of genes on introgression blocks: ",$n_genes_on_introgression_blockz,"\n";
+print OUTFILE "Number of genes on introgression blocks: ",$n_genes_on_introgression_blockz,"\n";
 
 print "Number of Ninteract genes with at least a portion on at least one admixture block: ",$#Ninteract_genez_on_one_or_more_admixture_block+1,"\n";
+print OUTFILE "Number of Ninteract genes with at least a portion on at least one admixture block: ",$#Ninteract_genez_on_one_or_more_admixture_block+1,"\n";
+
 if(($n_introgression_blocks_with_interacting_genez+$n_introgression_blocks_with_other_genez)>0){
 	print "Proportion of introgression blocks with genes that have N_interact genes ",$n_introgression_blocks_with_interacting_genez/
 	($n_introgression_blocks_with_interacting_genez+$n_introgression_blocks_with_other_genez),"\n";
 	print "Proportion of genes on introgression blocks that are N_interact genes 	",$n_Ninteract_genes_on_introgression_blockz/$n_genes_on_introgression_blockz,"\n";
+	print OUTFILE "Proportion of introgression blocks with genes that have N_interact genes ",$n_introgression_blocks_with_interacting_genez/
+	($n_introgression_blocks_with_interacting_genez+$n_introgression_blocks_with_other_genez),"\n";
+	print OUTFILE "Proportion of genes on introgression blocks that are N_interact genes 	",$n_Ninteract_genes_on_introgression_blockz/$n_genes_on_introgression_blockz,"\n";
 
 #my $size = keys %N_interact_hash;
 # print "hello ",$#interact_perm,"\n";
@@ -241,29 +269,40 @@ if(($n_introgression_blocks_with_interacting_genez+$n_introgression_blocks_with_
 	for ($y = 0 ; $y <= $#quick_perm_genez_sorted; $y++ ) {
 		if(($test_stat2 <= $quick_perm_genez_sorted[$y])&&($switch==0)){ # use for PF626; test stat is zero
 			print $counter," out of ",$perms," permutations have a smaller number of Ninteract genes in introgression blocks.\n";
+			print OUTFILE $counter," out of ",$perms," permutations have a smaller number of Ninteract genes in introgression blocks.\n";
 			$pval=$counter;
 			$switch = 1;
 		}
 		$counter+=1;
-	}	
+	}
+	if($switch==0){
+		print $counter," out of ",$perms," permutations have a smaller number of Ninteract genes in introgression blocks.\n";
+		print OUTFILE $counter," out of ",$perms," permutations have a smaller number of Ninteract genes in introgression blocks.\n";
+	}
+	# if all the perms are less than the test stat, then
+	# we still need to set pval to be equal to the number of
+	# perms
+	if($counter == $perms){
+	    $pval = $counter;
+	}
+		
 	print "Test stat:",$test_stat2,"\n";
 	print "QuickP = ",$pval/$perms,"\n";
+	print OUTFILE "Test stat:",$test_stat2,"\n";
+	print OUTFILE "QuickP = ",1-$pval/$perms,"\n";
 
 
 }
 else{
 	print "Permutations not performed because there are no introgression blocks that have genes.\n";
+	print OUTFILE "Permutations not performed because there are no introgression blocks that have genes.\n";
 }	
-
-
 
 ######################
 # Another option would be to do the permutations
 # using the proportion of admixture blocks that have 
 # part of an Ninteract gene as the test statistic
 ######################
-
-
 
 # fisher_yates_shuffle( \@array ) : 
     # generate a random permutation of @array in place
@@ -277,4 +316,5 @@ else{
         }
     }
 
+close OUTFILE;
 ```
