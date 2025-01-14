@@ -2,9 +2,11 @@
 
 I'm going to use our vcf files as input to do Structure analysis using AdmixPipe3 (https://github.com/stevemussmann/admixturePipeline). I'd like to summarize multiple runs using CLUMPAK (https://clumpak.tau.ac.il/download.html).
 
-First step is to remove extraneous info from the vcf file:
+First step is to combine the autosomal chromosomes and then remove extraneous info from the vcf file:
+
 ```
 module load StdEnv/2020  gcc/9.3.0 bcftools/1.9
+bcftools concat ../SulaSNPs_only_hardfiltered_and_thinned/thinned_vcfz/SulaSNPs.Chr{1..20}_maxmissingcount_0_genoqual30.vcf.recode.vcf.gz_thinned.recode.vcf -Ov -o  ../SulaSNPs_only_hardfiltered_and_thinned/thinned_vcfz/SulaSNPs.AllChr_maxmissingcount_0_genoqual30.vcf.recode.vcf.gz_thinned.recode.vcf
 bcftools annotate --remove FORMAT ../SulaSNPs_only_hardfiltered_and_thinned/thinned_vcfz/SulaSNPs.Chr1_maxmissingcount_0_genoqual30.vcf.recode.vcf.gz_thinned.recode.vcf -Ov -o temp.vcf
 ```
 
