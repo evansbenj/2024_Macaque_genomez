@@ -34,3 +34,8 @@ module load StdEnv/2020 scipy-stack/2022a python/3.10.2 vcftools/0.1.16 plink/1.
 
 app/scripts/python/admixturePipeline/admixturePipeline.py -m popmap_Sulaonly.txt -v tempp.vcf --rep 10 -k ${1} -K ${1} -n 1 -S 1 -a 0.05 # you can also do parallel jobs by adding a flad -n 8
 ```
+
+In addition to plotting a bar chart, maybe do pie charts on a map:
+```
+https://github.com/Tom-Jenkins/mapmixture
+```
