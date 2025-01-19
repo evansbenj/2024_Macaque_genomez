@@ -11,6 +11,30 @@ Now thin data to include only positions in every 5000 bp
 vcftools --vcf all_162_maqs_chr1_maxmissingcount_0_genoqual30.vcf.recode.vcf --out all_162_maqs_chr1_maxmissingcount_0_genoqual30_thin_5000 --thin 5000 --recode
 ```
 
+on info I then concatenated the autosomal chrs:
+```
+bcftools concat all_162_maqs_chr{1..20}_maxmissingcount_0_genoqual30_thin_5000.recode.vcf -Ov -o all_162_maqs_allautsomal_chrs_maxmissingcount_0_genoqual30_thin_5000.recode.vcf
+```
+and then I used plink to make the input files:
+```
+plink --vcf all_162_maqs_allautsomal_chrs_maxmissingcount_0_genoqual30_thin_5000.recode.vcf --make-bed --out all_162_maqs_allautsomal_chrs_maxmissingcount_0_genoqual30_thin_5000 --allow-extra-chr
+
+# ADMIXTURE does not accept chromosome names that are not human chromosomes. We will thus just exchange the first column by 0
+awk '{$1="0";print $0}' all_162_maqs_allautsomal_chrs_maxmissingcount_0_genoqual30_thin_5000.bim > all_162_maqs_allautsomal_chrs_maxmissingcount_0_genoqual30_thin_5000.bim.tmp
+mv all_162_maqs_allautsomal_chrs_maxmissingcount_0_genoqual30_thin_5000.bim.tmp all_162_maqs_allautsomal_chrs_maxmissingcount_0_genoqual30_thin_5000.bim
+```
+I then opened 20 screens and did independent analyses in separate folders:
+```
+for i in {2..12}
+do
+/usr/local/admixture/admixture --cv ../all_162_maqs_chrX_maxmissingcount_0_genoqual30_thin_5000.recode.bed $i > log${i}.out
+done
+```
+I did this also for the X chromosome.
+
+
+
+# Below is for Admix pipeline
 
 Now combine the autosomal chromosomes and then remove extraneous info from the vcf file:
 
