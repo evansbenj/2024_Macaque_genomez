@@ -23,11 +23,11 @@ plink --vcf all_162_maqs_allautsomal_chrs_maxmissingcount_0_genoqual30_thin_5000
 awk '{$1="0";print $0}' all_162_maqs_allautsomal_chrs_maxmissingcount_0_genoqual30_thin_5000.bim > all_162_maqs_allautsomal_chrs_maxmissingcount_0_genoqual30_thin_5000.bim.tmp
 mv all_162_maqs_allautsomal_chrs_maxmissingcount_0_genoqual30_thin_5000.bim.tmp all_162_maqs_allautsomal_chrs_maxmissingcount_0_genoqual30_thin_5000.bim
 ```
-I then opened 20 screens and did independent analyses in separate folders:
+I then opened 20 screens and did independent analyses (with different seeds) in separate folders:
 ```
 for i in {2..12}
 do
-/usr/local/admixture/admixture --cv ../all_162_maqs_chrX_maxmissingcount_0_genoqual30_thin_5000.recode.bed $i > log${i}.out
+/usr/local/admixture/admixture --cv --seed $((1 + $RANDOM % 1000)) ../all_162_maqs_chrX_maxmissingcount_0_genoqual30_thin_5000.recode.bed $i > log${i}.out
 done
 ```
 I did this also for the X chromosome.
