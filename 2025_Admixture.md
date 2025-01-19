@@ -1,8 +1,18 @@
-# Structure analysis
+# Admixture analysis
 
 I'm going to use our vcf files as input to do Structure analysis using AdmixPipe3 (https://github.com/stevemussmann/admixturePipeline). I'd like to summarize multiple runs using CLUMPAK (https://clumpak.tau.ac.il/download.html).
 
-First step is to combine the autosomal chromosomes and then remove extraneous info from the vcf file:
+First remove positions with missing data:
+```
+vcftools --vcf all_162_maqs_chr1.vcf --max-missing-count 0 --minQ 30 --recode --recode-INFO-all --out all_162_maqs_chr1_maxmissingcount_0_genoqual30.vcf
+```
+Now thin data to include only positions in every 500 bp
+```
+
+```
+
+
+Now combine the autosomal chromosomes and then remove extraneous info from the vcf file:
 
 ```
 module load StdEnv/2020  gcc/9.3.0 bcftools/1.9
