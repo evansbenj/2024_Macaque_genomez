@@ -6,9 +6,9 @@ First remove positions with missing data:
 ```
 vcftools --vcf all_162_maqs_chr1.vcf --max-missing-count 0 --minQ 30 --recode --recode-INFO-all --out all_162_maqs_chr1_maxmissingcount_0_genoqual30.vcf
 ```
-Now thin data to include only positions in every 500 bp
+Now thin data to include only positions in every 5000 bp
 ```
-
+vcftools --vcf all_162_maqs_chr1_maxmissingcount_0_genoqual30.vcf --out all_162_maqs_chr1_maxmissingcount_0_genoqual30_thin_5000.vcf --thin 5000 --recode
 ```
 
 
