@@ -1,8 +1,13 @@
 # General Genomics
 
-Convert the hard filtered vcf files to geno format (on info2020):
+After hardfiltering, I removed positions with missing genotypes:
 ```
-python3 /home/ben/2025_genomics_general/genomics_general/VCF_processing/parseVCF.py -i all_162_maqs_chr1.vcf.gz --skipIndels --minQual 30 --gtf flag=DP min=5 max=100 -o all_162_maqs_chr1.geno.gz
+vcftools --gzvcf all_162_maqs_chrY.vcf_malez_only.vcf.gz --max-missing-count 0 --minQ 30 --recode --recode-INFO-all --out all_162_maqs_chrY.vcf_malez_maxmissingcount_0_genoqual30.vcf
+```
+
+Then I converted these files to geno format (on info2020):
+```
+python3 /home/ben/2025_genomics_general/genomics_general/VCF_processing/parseVCF.py -i all_162_maqs_chrX_maxmissingcount_0_genoqual30.vcf.recode.vcf.gz --skipIndels --minQual 30 --gtf flag=DP min=5 max=100 -o all_162_maqs_chrX_maxmissingcount_0_genoqual30.geno.gz
 ```
 
 It will be interesting to compare 
