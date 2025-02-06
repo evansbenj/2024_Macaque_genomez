@@ -2,7 +2,7 @@
 
 After hardfiltering, I removed positions with missing genotypes:
 ```
-vcftools --gzvcf all_162_maqs_chrY.vcf_malez_only.vcf.gz --max-missing-count 0 --minQ 30 --recode --recode-INFO-all --out all_162_maqs_chrY.vcf_malez_maxmissingcount_0_genoqual30.vcf
+vcftools --gzvcf all_162_maqs_chrY.vcf_malez_only.vcf.gz --max-missing-count 0 --min-alleles 2 --max-alleles 2 --minQ 30 --recode --recode-INFO-all --out all_162_maqs_chrY.vcf_malez_maxmissingcount_0_biallelic_genoqual30.vcf
 ```
 
 Then I converted these files to geno format (on info2020):
