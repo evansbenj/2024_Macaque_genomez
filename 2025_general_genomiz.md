@@ -16,6 +16,12 @@ zcat all_162_maqs_chr1_maxmissingcount_0_genoqual30.geno.gz | sed '/N\/N/d' > al
 cat all_162_maqs_chr1_maxmissingcount_0_genoqual30_a.geno | sed '/N|N/d' > all_162_maqs_chr1_maxmissingcount_0_genoqual30_b.geno
 
 ```
+
+Now calculate Fst in windows:
+```
+python3 /home/ben/2025_genomics_general/genomics_general/popgenWindows.py -w 5000000 -m 100 -g all_162_maqs_chr14_maxmissingcount_0_biallelic_genoqual30_b.geno.gz -o all_162_maqs_chr14_maxmissingcount_0_biallelic_genoqual30_b.geno_diversity_SUM_BOR_PAG.csv.gz -f phased -T 5 -p SUM -p BOR -p PAG --popsFile pops_all.txt
+```
+
 It will be interesting to compare 
 * Fst of autosomes and the X (expect higher for the X)
 * Fst of the X of females and the X of males (expect higher for female X)
