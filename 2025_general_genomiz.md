@@ -17,9 +17,9 @@ cat all_162_maqs_chr1_maxmissingcount_0_genoqual30_a.geno | sed '/N|N/d' > all_1
 
 ```
 
-Now calculate Fst in windows:
+Now calculate Fst in 30Kb windows:
 ```
-python3 /home/ben/2025_genomics_general/genomics_general/popgenWindows.py -w 5000000 -m 100 -g all_162_maqs_chr14_maxmissingcount_0_biallelic_genoqual30_b.geno.gz -o all_162_maqs_chr14_maxmissingcount_0_biallelic_genoqual30_b.geno_diversity_SUM_BOR_PAG.csv.gz -f phased -T 5 -p SUM -p BOR -p PAG --popsFile pops_all.txt
+python3 /home/ben/2025_genomics_general/genomics_general/popgenWindows.py -w 30000 -m 50 -g all_162_maqs_chr14_maxmissingcount_0_biallelic_genoqual30_b.geno.gz -o all_162_maqs_chr14_maxmissingcount_0_biallelic_genoqual30_b.geno_diversity_SUM_BOR_PAG.csv.gz -f phased -T 5 -p SUM -p BOR -p PAG --popsFile pops_all.txt --writeFailedWindows
 ```
 
 The gz output for each chr can be downloaded. Then concated them using this script:
