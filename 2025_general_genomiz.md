@@ -34,8 +34,8 @@ use strict;
 use warnings;
 
 
-# This program globs a bunch of chromosome output files from the script called Performs_ABBA_BABA_on_populations.pl
-# and concatenates them for analysis by "Does_block_jackknife.pl"
+# This program globs a bunch of chromosome output files 
+# and concatenates them
 
 # Run like this "Makes_inputfile_for_jackknife.pl inputprefix"
 
