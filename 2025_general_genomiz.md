@@ -430,13 +430,14 @@ foreach my $key (keys %windows){
 			$N_interact_counter+=1;
 			$Fst_associated += $windows{$key}{"fst"};
 			$n_Fst_associated += 1;	
-			print "hi ",$key," ",$windows{$key}{"fst"},"\n";
+			#print "hi ",$key," ",$windows{$key}{"fst"},"\n";
+			push(@fst_for_perms,$windows{$key}{"fst"}); # this array will only include data from windows with genes
 		}
 		elsif(($windows{$key}{"contains_genes"} != 0)&&($windows{$key}{"contains_mt_interact"} == 0)){
 			$Fst_non_associated += $windows{$key}{"fst"};
 			$n_Fst_non_associated += 1;
+			push(@fst_for_perms,$windows{$key}{"fst"}); # this array will only include data from windows with genes
 		}
-		push(@fst_for_perms,$windows{$key}{"fst"});
 	}
 }
 
