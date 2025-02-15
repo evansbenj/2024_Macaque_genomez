@@ -21,6 +21,11 @@ Now calculate Fst in 30Kb windows:
 ```
 python3 /home/ben/2025_genomics_general/genomics_general/popgenWindows.py -w 30000 -m 50 -g all_162_maqs_chr14_maxmissingcount_0_biallelic_genoqual30_b.geno.gz -o all_162_maqs_chr14_maxmissingcount_0_biallelic_genoqual30_b.geno_diversity_SUM_BOR_PAG.csv.gz -f phased -T 5 -p SUM -p BOR -p PAG --popsFile pops_all.txt --writeFailedWindows
 ```
+30kb windows ended up having many windows with less than 50 variable positions. This may be due to the agressive filtering, which removed positions with any missing genotype. Instead let's try 100kb windows and also relax the minmum number of sites to be 30 instead of 50:
+```
+python3 /home/ben/2025_genomics_general/genomics_general/popgenWindows.py -w 100000 -m 30 -g all_162_maqs_chr14_maxmissingcount_0_biallelic_genoqual30_b.geno.gz -o all_162_maqs_chr14_maxmissingcount_0_biallelic_genoqual30_b.geno_diversity_SUM_BOR_PAG.csv.gz -f phased -T 5 -p SUM -p BOR -p PAG --popsFile pops_all.txt --writeFailedWindows
+
+```
 
 The gz output for each chr can be downloaded. Then concated them using this script:
 ```
