@@ -464,7 +464,7 @@ my $test_stat = ($Fst_associated/$n_Fst_associated) - ($Fst_non_associated/$n_Fs
 # first make an array that will be shuffled with the same number of 1s and 0s as the $OXPHOS{$key}{"complex"} variable
 my @associated_or_not_array = (('1') x $n_Fst_associated, ('0') x $n_Fst_non_associated);
 
-my $perms=2;
+my $perms=100;
 my $Fst_associated_perm=0;
 my $Fst_not_associated_perm=0;
 my $n_Fst_associated_perm=0;
