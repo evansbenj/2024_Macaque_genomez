@@ -293,6 +293,7 @@ my @temp;
 my $y;
 my $x;
 my %OXPHOS;
+my %windows;
 
 # first open up the OXPHOS gene info (# rheMac10.ncbiRefSeq.CDS.marked.corrected.new.oout)
 unless (open DATAINPUT, $inputfile1) {
@@ -304,19 +305,10 @@ while ( my $line = <DATAINPUT>) {
 	chomp($line);
 	@temp=split('\t',$line);
 	if(($temp[0] ne 'gene')&&($temp[2] ne 'chrX')){ # deliberately ignores chrX
-		if($temp[6] eq '+'){ # the gene is in the forward orientation
-			$OXPHOS{$temp[2]."_".$temp[3]."_".$temp[4]}{"gene"} = $temp[0];
-			$OXPHOS{$temp[2]."_".$temp[3]."_".$temp[4]}{"complex"} = $temp[1];
-			$OXPHOS{$temp[2]."_".$temp[3]."_".$temp[4]}{"mt_interact"} = $temp[5];
-		}
-		elsif($temp[6] eq '-'){ # the gene is in the reverse orientation
-			$OXPHOS{$temp[2]."_".$temp[4]."_".$temp[3]}{"gene"} = $temp[0];
-			$OXPHOS{$temp[2]."_".$temp[4]."_".$temp[3]}{"complex"} = $temp[1];
-			$OXPHOS{$temp[2]."_".$temp[4]."_".$temp[3]}{"mt_interact"} = $temp[5];
-		}
-		else{
-			print "something wrong with gene orientation $line\n";
-		}
+		# deliberately ignoring orientation because we are considering any overlap
+		$OXPHOS{$temp[2]."_".$temp[3]."_".$temp[4]}{"gene"} = $temp[0];
+		$OXPHOS{$temp[2]."_".$temp[3]."_".$temp[4]}{"complex"} = $temp[1];
+		$OXPHOS{$temp[2]."_".$temp[3]."_".$temp[4]}{"mt_interact"} = $temp[5];
 	}	
 }		
 close DATAINPUT;
@@ -342,7 +334,7 @@ my $number_of_genes_in_this_window=0;
 my $number_of_gene_beginnings_in_this_window=0;
 my $number_of_Ninteract_gene_beginnings_in_this_window=0;
 my $number_of_Ninteract_genes_in_this_window=0;
-my $Ninteract_acronym="";
+my $Ninteract_acronym="-";
 my $number_of_Ninteract_genes_spanning_a_window=0;
 my $Fst_no_genez=0; # no genes
 my $n_Fst_no_genez=0; # this includes all non associated genes, including those anywhere 
@@ -378,7 +370,10 @@ while ( my $line = <DATAINPUT2>) {
 						if(($temp1[0] eq $temp[0])&&($temp1[1] >= $temp[1])&&($temp1[1] <= $temp[2])){
 							$number_of_gene_beginnings_in_this_window+=1; # includes only beginning so genes get counted only once across all windows
 						}
-						$OXPHOS{$key}{"start_fst"} = $temp[$column];
+						# I am not using the OXPHOS hash to record Fst now because instead we are doing everything
+						# from the perspective of windows and one gene may span multiple windows and one window
+						# may have multiple genes
+						#$OXPHOS{$key}{"start_fst"} = $temp[$column];
 						#$OXPHOS{$key}{"start_fst_sites"} = $temp[4];
 						if($OXPHOS{$key}{"mt_interact"} == 1){
 							$N_interact_window=1;
@@ -391,7 +386,7 @@ while ( my $line = <DATAINPUT2>) {
 								$Ninteract_acronym=$OXPHOS{$key}{"gene"};
 							}	
 							else{
-								$Ninteract_acronym=$Ninteract_acronym.",".$OXPHOS{$key}{"gene"};
+								$Ninteract_acronym=$Ninteract_acronym.",".$OXPHOS{$key}{"gene"}; # just keep track of all the Ninteract genes in all windows (no need to record names for each window)
 							}	
 						}	
 				} # check for any genez
@@ -403,15 +398,20 @@ while ( my $line = <DATAINPUT2>) {
 			}
 		}
 		if($temp[0] ne 'scaffold'){
-			print OUTFILE $temp[0],"\t",$temp[1],"\t",$temp[8],"\t",$gene_containing_window,"\t",$N_interact_window,
+			# print information to density file for plotting
+			print OUTFILE $temp[0],"\t",$temp[1],"\t",$temp[$column],"\t",$gene_containing_window,"\t",$N_interact_window,
 			"\t",$number_of_genes_in_this_window,"\t",$number_of_Ninteract_genes_in_this_window,"\t",$Ninteract_acronym,"\n";
+			# record information in a hash for Fst calculations
+			$windows{$temp[0]."_".$temp[1]."_".$temp[2]}{"contains_genes"}=$gene_containing_window;
+			$windows{$temp[0]."_".$temp[1]."_".$temp[2]}{"contains_mt_interact"}=$N_interact_window;
+			$windows{$temp[0]."_".$temp[1]."_".$temp[2]}{"fst"}=$temp[$column];
 		}	
 }
 
 close OUTFILE;
 close DATAINPUT2;
 
-# Now the OXPHOS hash has Fst and coordinates of all blocks that have genes
+# Now the %windows hash has Fst and coordinates of all windows 
 my @fst_for_perms; # this has only the mtinteractors and all genes
 my $Fst_associated=0; # all OXPHOS,MRP, ARP2 genes
 my $Fst_non_associated=0;
@@ -422,26 +422,26 @@ my $n_Fst_non_associated=0; # this includes all non associated genes, including 
 my $N_interact_counter=0;
 
 # now calculate the average fst for associated and non-associated OXPHOS genes
-foreach my $key (keys %OXPHOS){
-	if((exists($OXPHOS{$key}{"start_fst"})) &&
-		($OXPHOS{$key}{"start_fst"} ne 'nan')){
+foreach my $key (keys %windows){
+	if((exists($windows{$key}{"fst"})) &&
+		($windows{$key}{"fst"} ne 'nan')){
 
-		if($OXPHOS{$key}{"mt_interact"} == 1){
+		if(($windows{$key}{"contains_genes"} != 0)&&($windows{$key}{"contains_mt_interact"} == 1)){
 			$N_interact_counter+=1;
-			$Fst_associated += $OXPHOS{$key}{"start_fst"};
+			$Fst_associated += $windows{$key}{"fst"};
 			$n_Fst_associated += 1;	
+			print "hi ",$key," ",$windows{$key}{"fst"},"\n";
 		}
-		elsif($OXPHOS{$key}{"mt_interact"} == 0){
-			$Fst_non_associated += $OXPHOS{$key}{"start_fst"};
+		elsif(($windows{$key}{"contains_genes"} != 0)&&($windows{$key}{"contains_mt_interact"} == 0)){
+			$Fst_non_associated += $windows{$key}{"fst"};
 			$n_Fst_non_associated += 1;
 		}
-		push(@fst_for_perms,$OXPHOS{$key}{"start_fst"});
+		push(@fst_for_perms,$windows{$key}{"fst"});
 	}
 }
 
 
 # now report values
-print "Number of associated blocks ",$n_Fst_associated,"\n";
 print "Number of windows that have at least a portion of an N_interact gene: ",$N_interact_counter,"\n";
 print "Number of windows that have an N_interact beginning: ",$number_of_Ninteract_gene_beginnings_in_this_window,"\n";
 print "Mean Fst all N_interact windows with at least a portion of at least one N_interact gene: ",$Fst_associated/$n_Fst_associated,"\n";
@@ -463,7 +463,7 @@ my $test_stat = ($Fst_associated/$n_Fst_associated) - ($Fst_non_associated/$n_Fs
 # first make an array that will be shuffled with the same number of 1s and 0s as the $OXPHOS{$key}{"complex"} variable
 my @associated_or_not_array = (('1') x $n_Fst_associated, ('0') x $n_Fst_non_associated);
 
-my $perms=100;
+my $perms=2;
 my $Fst_associated_perm=0;
 my $Fst_not_associated_perm=0;
 my $n_Fst_associated_perm=0;
@@ -528,6 +528,9 @@ print "P = ",1-($pval/$perms),"\n";
             @$array[$i,$j] = @$array[$j,$i];
         }
     }
+
+
+
 ```
 
 # Density plot
