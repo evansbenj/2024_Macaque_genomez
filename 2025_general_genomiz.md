@@ -316,14 +316,6 @@ while ( my $line = <DATAINPUT>) {
 }		
 close DATAINPUT;
 
-# this will print out a file that I can use for plotting later
-
-my $outputfile = $inputfile2."_FST__density.txt"; # the name of the output file is from the commandline
-unless (open(OUTFILE, ">$outputfile"))  {
-	print "I can\'t write to $outputfile\n";
-	exit;
-}
-
 # now open up the Fst data
 unless (open DATAINPUT2, $inputfile2) {
 	print "Can not find the input file.\n";
@@ -342,7 +334,6 @@ my $number_of_Ninteract_genes_spanning_a_window=0;
 my $Fst_no_genez=0; # no genes
 my $n_Fst_no_genez=0; # this includes all non associated genes, including those anywhere 
 
-print OUTFILE "chr\tpos\tFst\tcontainsgenes\tcontainsNinteractgenez\tnumber_of_genes\tnumber_of_Ninteractgenez\tNinteract_acronym\n";
 
 while ( my $line = <DATAINPUT2>) {
 	chomp($line);
@@ -401,6 +392,7 @@ while ( my $line = <DATAINPUT2>) {
 			}
 		}
 		if($temp[0] ne 'scaffold'){
+			
 			# print information to density file for plotting
 			print OUTFILE $temp[0],"\t",$temp[1],"\t",$temp[$column],"\t",$gene_containing_window,"\t",$N_interact_window,
 			"\t",$number_of_genes_in_this_window,"\t",$number_of_Ninteract_genes_in_this_window,"\t",$Ninteract_acronym,"\n";
@@ -408,6 +400,15 @@ while ( my $line = <DATAINPUT2>) {
 			$windows{$temp[0]."_".$temp[1]."_".$temp[2]}{"contains_genes"}=$gene_containing_window;
 			$windows{$temp[0]."_".$temp[1]."_".$temp[2]}{"contains_mt_interact"}=$N_interact_window;
 			$windows{$temp[0]."_".$temp[1]."_".$temp[2]}{"fst"}=$temp[$column];
+		}
+		else{ # open up the outputfile
+			# this will print out a file that I can use for plotting later
+			my $outputfile = $inputfile2."_".$temp[$column]."_FST_density.txt"; # the name of the output file is from the commandline
+			unless (open(OUTFILE, ">$outputfile"))  {
+				print "I can\'t write to $outputfile\n";
+				exit;
+			}
+			print OUTFILE "chr\tpos\tFst\tcontainsgenes\tcontainsNinteractgenez\tnumber_of_genes\tnumber_of_Ninteractgenez\tNinteract_acronym\n";
 		}	
 }
 
@@ -532,9 +533,6 @@ print "P = ",1-($pval/$perms),"\n";
             @$array[$i,$j] = @$array[$j,$i];
         }
     }
-
-
-
 ```
 
 # Density plot
