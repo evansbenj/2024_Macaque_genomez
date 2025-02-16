@@ -26,7 +26,13 @@ python3 /home/ben/2025_genomics_general/genomics_general/popgenWindows.py -w 300
 python3 /home/ben/2025_genomics_general/genomics_general/popgenWindows.py -w 100000 -m 30 -g all_162_maqs_chr14_maxmissingcount_0_biallelic_genoqual30_b.geno.gz -o all_162_maqs_chr14_maxmissingcount_0_biallelic_genoqual30_b.geno_diversity_SUM_BOR_PAG.csv.gz -f phased -T 5 -p SUM -p BOR -p PAG --popsFile pops_all.txt --writeFailedWindows
 
 ```
-where the pops_all.txt file is this:
+A window size of 100Kb is probably too big to detect changes in polymorphism near Ninteract genes. So instead I'll try the 30kb windows again and require only 5 variable positions:
+```
+python3 /home/ben/2025_genomics_general/genomics_general/popgenWindows.py -w 30000 -m 5 -g all_162_maqs_chr14_maxmissingcount_0_biallelic_genoqual30_b.geno.gz -o all_162_maqs_chr14_maxmissingcount_0_biallelic_genoqual30_b.geno_diversity_SUM_BOR_PAG.csv.gz -f phased -T 5 -p SUM -p BOR -p PAG --popsFile pops_all.txt --writeFailedWindows
+```
+
+
+The pops_all.txt file is this:
 ```
 SAMN07503410	BOR
 SAMN07508148	BOR
