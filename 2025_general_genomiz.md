@@ -28,7 +28,7 @@ python3 /home/ben/2025_genomics_general/genomics_general/popgenWindows.py -w 100
 ```
 A window size of 100Kb is probably too big to detect changes in polymorphism near Ninteract genes. So instead I'll try the 30kb windows again and require only 5 variable positions:
 ```
-python3 /home/ben/2025_genomics_general/genomics_general/popgenWindows.py -w 30000 -m 5 -g all_162_maqs_chr14_maxmissingcount_0_biallelic_genoqual30_b.geno.gz -o all_162_maqs_chr14_maxmissingcount_0_biallelic_genoqual30_b.geno_diversity_SUM_BOR_PAG.csv.gz -f phased -T 5 -p SUM -p BOR -p PAG --popsFile pops_all.txt --writeFailedWindows
+/home/ben/2025_genomics_general/genomics_general/popgenWindows.py -w 30000 -m 5 -g all_162_maqs_chr1_maxmissingcount_0_biallelic_genoqual30_b.geno.gz -o all_162_maqs_chr1_maxmissingcount_0_biallelic_genoqual30_b.geno_diversity_30kbwindows_min5var.csv.gz -f phased -T 5 -p SUM -p BOR -p PAG -p MAU -p TON -p HEC -p NGS -p NGA -p OCH -p BRU -p TOG --popsFile pops_all.txt --writeFailedWindows
 ```
 
 
