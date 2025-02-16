@@ -257,7 +257,10 @@ It will be interesting to compare
 * Fst of the X of males and the Y of males (expect higher for X)
 
 # Making density plots and doing permutations
-This perl script will do permutations to test whether the difference between the mean Fst of Ninteract and nonNinteract windows is likely to occur by chance. It also makes and input file for plotting density plots of Fst using a R script that follows.
+This perl script will do permutations to test whether the difference between the mean Fst of Ninteract and nonNinteract windows is likely to occur by chance. It also makes and input file for plotting density plots of Fst using a R script that follows.  Run like this to save output to a log file:
+```
+./2025_All_N_mt_allinteract_fst_permutation.pl rheMac10.ncbiRefSeq.CDS.marked.corrected.orientation.new.oout SULA.concat.txt 68 > TOG_TON.log
+```
 
 ```perl
 #!/usr/bin/env perl
