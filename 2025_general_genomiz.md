@@ -10,7 +10,7 @@ So instead, after hardfiltering, I converted these files to geno format (on info
 ```
 python3 /home/ben/2025_genomics_general/genomics_general/VCF_processing/parseVCF.py -i all_162_maqs_chr7.vcf --skipIndels --minQual 30 -o all_162_maqs_chr7.geno.gz
 ```
-then I removed positions with "N"s like this:
+I initailly removed positions with "N"s, but then I decided not to do this because the general genomics scripts already handle missing data:
 ```
 zcat all_162_maqs_chr1_maxmissingcount_0_genoqual30.geno.gz | sed '/N\/N/d' > all_162_maqs_chr1_maxmissingcount_0_genoqual30_a.geno
 
@@ -20,18 +20,8 @@ cat all_162_maqs_chr1_maxmissingcount_0_genoqual30_a.geno | sed '/N|N/d' > all_1
 
 Now calculate Fst in 30Kb windows (on info2020 only):
 ```
-python3 /home/ben/2025_genomics_general/genomics_general/popgenWindows.py -w 30000 -m 50 -g all_162_maqs_chr14_maxmissingcount_0_biallelic_genoqual30_b.geno.gz -o all_162_maqs_chr14_maxmissingcount_0_biallelic_genoqual30_b.geno_diversity_SUM_BOR_PAG.csv.gz -f phased -T 5 -p SUM -p BOR -p PAG --popsFile pops_all.txt --writeFailedWindows
+python3 /home/ben/2025_genomics_general/genomics_general/popgenWindows.py -w 30000 -m 50 -g all_162_maqs_chr7.geno.gz -o all_162_maqs_chr7.geno.geno_diversity_SUM_BOR_PAG.csv.gz -f phased -T 5 -p SUM -p BOR -p PAG -p MAU -p TON -p HEC -p NGS -p NGA -p OCH -p BRU -p TOG --popsFile pops_all.txt --writeFailedWindows
 ```
-30kb windows ended up having many windows with less than 50 variable positions. This may be due to the agressive filtering, which removed positions with any missing genotype. Instead let's try 100kb windows and also relax the minmum number of sites to be 30 instead of 50 (on info2020 only):
-```
-python3 /home/ben/2025_genomics_general/genomics_general/popgenWindows.py -w 100000 -m 30 -g all_162_maqs_chr14_maxmissingcount_0_biallelic_genoqual30_b.geno.gz -o all_162_maqs_chr14_maxmissingcount_0_biallelic_genoqual30_b.geno_diversity_SUM_BOR_PAG.csv.gz -f phased -T 5 -p SUM -p BOR -p PAG --popsFile pops_all.txt --writeFailedWindows
-
-```
-A window size of 100Kb is probably too big to detect changes in polymorphism near Ninteract genes. So instead I'll try the 30kb windows again and require only 5 variable positions:
-```
-python3 /home/ben/2025_genomics_general/genomics_general/popgenWindows.py -w 30000 -m 5 -g all_162_maqs_chr19_maxmissingcount_0_biallelic_genoqual30_b.geno.gz -o all_162_maqs_chr19_maxmissingcount_0_biallelic_genoqual30_b.geno_diversity_30kbwindows_min5var.csv.gz -f phased -T 5 -p SUM -p BOR -p PAG -p MAU -p TON -p HEC -p NGS -p NGA -p OCH -p BRU -p TOG --popsFile pops_all.txt --writeFailedWindows
-```
-
 
 The pops_all.txt file is this:
 ```
