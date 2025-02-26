@@ -1,13 +1,14 @@
 # General Genomics
 
-After hardfiltering, I removed positions with missing genotypes:
+After hardfiltering, I initially removed positions with missing genotypes:
 ```
 vcftools --gzvcf all_162_maqs_chr1.vcf.gz --max-missing-count 0 --min-alleles 2 --max-alleles 2 --minQ 30 --recode --recode-INFO-all --stdout | gzip -c > all_162_maqs_chr1_maxmissingcount_0_biallelic_genoqual30.vcf.gz
 ```
+But then I decided to not do this becuase the vcf has many species and some pairwise comparisons could looks many sites just because there are poor mappings in a species that is not included in the comparison.
 
-Then I converted these files to geno format (on info2020):
+So instead, after hardfiltering, I converted these files to geno format (on info2020):
 ```
-python3 /home/ben/2025_genomics_general/genomics_general/VCF_processing/parseVCF.py -i all_162_maqs_chrX_maxmissingcount_0_genoqual30.vcf.recode.vcf.gz --skipIndels --minQual 30 --gtf flag=DP min=5 max=100 -o all_162_maqs_chrX_maxmissingcount_0_genoqual30.geno.gz
+python3 /home/ben/2025_genomics_general/genomics_general/VCF_processing/parseVCF.py -i all_162_maqs_chr7.vcf --skipIndels --minQual 30 -o all_162_maqs_chr7.geno.gz
 ```
 then I removed positions with "N"s like this:
 ```
