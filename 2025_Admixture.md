@@ -40,7 +40,7 @@ To compile the results after the files, filenames, and directories have been set
 
 Then to plot, run the R script `AdmixturePlotter.R`:
 ```
-./AdmixturePlotter.R -i ../OUTPUT/Plotting/compound.labelled.QperK.txt  -o Autosomal_Plot -p ../OUTPUT/poporder.txt
+Rscript AdmixturePlotter.R -i ../Plotting/compound.labelled.QperK.txt -c ../colorlist.txt -p ../poporder.txt
 ```
 
 
