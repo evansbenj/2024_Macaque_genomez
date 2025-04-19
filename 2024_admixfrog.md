@@ -1,5 +1,10 @@
 # Admixfrog
 
+Directory:
+```
+/home/ben/projects/rrg-ben/ben/2024_macaques/concatenated_vcfs/SulaSNPs_only_hardfiltered_and_thinned
+```
+
 Admixfrog is a program written by Ben Peter that uses an HMM to estimate locations of introgression blocks in genomic data.
 
 I installed the latest version (admixfrog 0.7.2.post1.dev0+1c27c43) like this:
