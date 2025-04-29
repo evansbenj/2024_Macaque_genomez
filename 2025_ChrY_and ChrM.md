@@ -1,4 +1,15 @@
-# ChrY
+# ChrY and ChrM
+
+Directory on graham (ChrY):
+```
+/home/ben/projects/rrg-ben/ben/2024_macaques/concatenated_vcfs/all_hardfiltered/ChrY
+```
+
+Directory on graham (ChrM):
+```
+/home/ben/projects/rrg-ben/ben/2024_macaques/concatenated_vcfs/all_hardfiltered/ChrM
+```
+
 
 I'm going to make a ChrY phylogeny from the male individual maqz. I'm using this python script (https://github.com/edgardomortiz/vcf2phylip/tree/master) to generate a nexus file:
 ```
