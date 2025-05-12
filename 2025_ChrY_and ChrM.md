@@ -32,6 +32,20 @@ Then I compressed this file and ran vcf2phylip like this:
 python3 ../vcf2phylip/vcf2phylip.py -i ../mac_chrY_concat.vcf.gz_filtered_onlybiallelic4real_onlymalez.vcf.gz -m 0 --output-prefix theY_min0_ --write-used-sites --nexus
 ```
 
+save the ref seq:
+```
+zcat ../mac_chrY_concat.vcf.gz_filtered_onlybiallelic4real_onlymalez.vcf.gz | cut -f4 > rhesus_seq.txt
+````
+
+find out where the REF is:
+```
+grep -n 'REF' rhesus_seq.txt
+````
+
+remove the first 2992 lines
+```
+sed '1,2992 d' rhesus_seq.txt > rhesus_seq_only.txt
+```
 
 
 And then I'll use iqtree to do model selection and ML analysis...
