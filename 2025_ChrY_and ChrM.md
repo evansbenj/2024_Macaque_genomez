@@ -23,17 +23,15 @@ The ChrY nexus file is on info2020 here:
 # New ChrY with rhesus
 I want to use the rhesus ref as an outgroup. I needed to filter biallelic sites and also save only the males. So I used bcftools in two steps like this:
 ```
-bcftools view --max-alleles 2 ../mac_chrY_concat.vcf.gz_filtered.vcf.gz > ../mac_chrY_concat.vcf.gz_filtered_onlybiallelic.vcf.gz
+bcftools view -S males_list.txt -M2 -v snps ../mac_chrY_concat.vcf.gz_filtered.vcf.gz > ../mac_chrY_concat.vcf.gz_filtered_onlybiallelic4real_onlymalez.vcf
 ```
 
-```
-bcftools view ../mac_chrY_concat.vcf.gz_filtered_onlybiallelic.vcf -S males_list.txt > ../mac_chrY_concat.vcf.gz_filtered_onlybiallelic_onlymalez.vcf
-```
+
 Then I compressed this file and ran vcf2phylip like this:
 ```
-python3 ../vcf2phylip/vcf2phylip.py -i ../mac_chrY_concat.vcf.gz_filtered_onlybiallelic_onlymalez.vcf.gz -m 0 --output-prefix theY_min0_ --write-used-sites --nexus
+python3 ../vcf2phylip/vcf2phylip.py -i ../mac_chrY_concat.vcf.gz_filtered_onlybiallelic4real_onlymalez.vcf.gz -m 0 --output-prefix theY_min0_ --write-used-sites --nexus
 ```
 
-BUT, this did not work - vcf2phylip says it still finds 79 MNP (multiallele polymorphisms).  Ugh.
+
 
 And then I'll use iqtree to do model selection and ML analysis...
