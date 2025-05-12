@@ -46,6 +46,10 @@ remove the first 2992 lines
 ```
 sed '1,2992 d' rhesus_seq.txt > rhesus_seq_only.txt
 ```
+get rid of the carriage returns:
+```
+sed ':a;N;$!ba;s/\n//g' rhesus_seq_only.txt > rhesus_seq_only_oneline.txt
+```
 
 
 And then I'll use iqtree to do model selection and ML analysis...
