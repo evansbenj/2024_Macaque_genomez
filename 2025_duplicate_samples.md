@@ -4,6 +4,7 @@ Sebas identified two duplicates:
 105218 potentially same individual as 105177 (both Macaca nemestrina)
 105170 potentially same individual as 105173 (both Macaca nemestrina)
 
+I am going to delete the second one in each case (105177, 105173 will be deleted)
 
 
 
