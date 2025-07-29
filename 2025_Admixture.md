@@ -27,7 +27,7 @@ I then opened 20 screens and did independent analyses (with different seeds) in 
 ```
 for i in {2..12}
 do
-/usr/local/admixture/admixture --cv --seed $((1 + $RANDOM % 1000)) ../all_160_maqs_allautsomal_chrs_maxmissingcount_0_genoqual30_thin_5000.bed $i > log${i}.out
+/home/ben/2024_macaques/admixture/releases/admixture_linux-1.3.0/admixture --cv --seed $((1 + $RANDOM % 1000)) ../all_160_maqs_allautsomal_chrs_maxmissingcount_0_genoqual30_thin_5000.bed $i > log${i}.out
 done
 ```
 I did this also for the X chromosome.
