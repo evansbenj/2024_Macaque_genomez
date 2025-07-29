@@ -19,15 +19,19 @@ and then I used plink to make the input files:
 ```
 plink --vcf all_160_maqs_allautsomal_chrs_maxmissingcount_0_genoqual30_thin_5000.recode.vcf --make-bed --out all_160_maqs_allautsomal_chrs_maxmissingcount_0_genoqual30_thin_5000 --allow-extra-chr
 
-# ADMIXTURE does not accept chromosome names that are not human chromosomes. We will thus just exchange the first column by 0
-awk '{$1="0";print $0}' all_160_maqs_allautsomal_chrs_maxmissingcount_0_genoqual30_thin_5000.bim > all_160_maqs_allautsomal_chrs_maxmissingcount_0_genoqual30_thin_5000.bim.tmp
-mv all_160_maqs_allautsomal_chrs_maxmissingcount_0_genoqual30_thin_5000.bim.tmp all_160_maqs_allautsomal_chrs_maxmissingcount_0_genoqual30_thin_5000.bim
+# ADMIXTURE does not accept chromosome names that are not human chromosomes. We will thus just change the first column from 0 to 1
+# this did not work:
+# awk '{$1="0";print $0}' all_160_maqs_allautsomal_chrs_maxmissingcount_0_genoqual30_thin_5000.bim > all_160_maqs_allautsomal_chrs_maxmissingcount_0_genoqual30_thin_5000.bim.tmp
+but this did:
+cp all_160_maqs_allautsomal_chrs_maxmissingcount_0_genoqual30_thin_5000.bim tmp
+sed -i 's/0 . 0/1 . 1/g' tmp
+mv tmp all_160_maqs_allautsomal_chrs_maxmissingcount_0_genoqual30_thin_5000.bim
 ```
 I then opened 20 screens and did independent analyses (with different seeds) in separate folders:
 ```
 for i in {2..12}
 do
-/home/ben/2024_macaques/admixture/releases/admixture_linux-1.3.0/admixture --cv --seed $((1 + $RANDOM % 1000)) all_160_maqs_allautsomal_chrs_maxmissingcount_0_genoqual30_thin_5000.bed $i > log${i}.out
+/home/ben/2024_macaques/admixture/releases/admixture_linux-1.3.0/admixture --cv --seed $((1 + $RANDOM % 1000)) ../all_160_maqs_allautsomal_chrs_maxmissingcount_0_genoqual30_thin_5000.bed $i > log${i}.out
 done
 ```
 I did this also for the X chromosome.
