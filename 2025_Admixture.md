@@ -13,7 +13,7 @@ vcftools --vcf all_162_maqs_chr1_maxmissingcount_0_genoqual30.vcf.recode.vcf --o
 
 on info I then concatenated the autosomal chrs:
 ```
-bcftools concat all_162_maqs_chr{1..20}_maxmissingcount_0_genoqual30_thin_5000.recode.vcf -Ov -o all_162_maqs_allautsomal_chrs_maxmissingcount_0_genoqual30_thin_5000.recode.vcf
+bcftools concat all160.Chr{1..20}_maxmissingcount_0_genoqual30.vcf.gz_5000_thinned.recode.vcf -Ov -o all_160_maqs_allautsomal_chrs_maxmissingcount_0_genoqual30_thin_5000.recode.vcf
 ```
 and then I used plink to make the input files:
 ```
