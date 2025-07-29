@@ -17,17 +17,17 @@ bcftools concat all160.Chr{1..20}_maxmissingcount_0_genoqual30.vcf.gz_5000_thinn
 ```
 and then I used plink to make the input files:
 ```
-plink --vcf all_162_maqs_allautsomal_chrs_maxmissingcount_0_genoqual30_thin_5000.recode.vcf --make-bed --out all_162_maqs_allautsomal_chrs_maxmissingcount_0_genoqual30_thin_5000 --allow-extra-chr
+plink --vcf all_160_maqs_allautsomal_chrs_maxmissingcount_0_genoqual30_thin_5000.recode.vcf --make-bed --out all_160_maqs_allautsomal_chrs_maxmissingcount_0_genoqual30_thin_5000 --allow-extra-chr
 
 # ADMIXTURE does not accept chromosome names that are not human chromosomes. We will thus just exchange the first column by 0
-awk '{$1="0";print $0}' all_162_maqs_allautsomal_chrs_maxmissingcount_0_genoqual30_thin_5000.bim > all_162_maqs_allautsomal_chrs_maxmissingcount_0_genoqual30_thin_5000.bim.tmp
-mv all_162_maqs_allautsomal_chrs_maxmissingcount_0_genoqual30_thin_5000.bim.tmp all_162_maqs_allautsomal_chrs_maxmissingcount_0_genoqual30_thin_5000.bim
+awk '{$1="0";print $0}' all_160_maqs_allautsomal_chrs_maxmissingcount_0_genoqual30_thin_5000.bim > all_160_maqs_allautsomal_chrs_maxmissingcount_0_genoqual30_thin_5000.bim.tmp
+mv all_160_maqs_allautsomal_chrs_maxmissingcount_0_genoqual30_thin_5000.bim.tmp all_160_maqs_allautsomal_chrs_maxmissingcount_0_genoqual30_thin_5000.bim
 ```
 I then opened 20 screens and did independent analyses (with different seeds) in separate folders:
 ```
 for i in {2..12}
 do
-/usr/local/admixture/admixture --cv --seed $((1 + $RANDOM % 1000)) ../all_162_maqs_chrX_maxmissingcount_0_genoqual30_thin_5000.recode.bed $i > log${i}.out
+/usr/local/admixture/admixture --cv --seed $((1 + $RANDOM % 1000)) ../all_160_maqs_allautsomal_chrs_maxmissingcount_0_genoqual30_thin_5000.bed $i > log${i}.out
 done
 ```
 I did this also for the X chromosome.
