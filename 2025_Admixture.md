@@ -40,7 +40,10 @@ I did this also for the X chromosome.
 
 I used scripts in the AdmixturePlotter pipeline (https://github.com/TCLamnidis/AdmixturePlotter) to plot the admixture results.
 
-To compile the results after the files, filenames, and directories have been set up as detailed in the github page, you can run the bash script './CompileData_Automes.sh '.
+To compile the results after the files, filenames, and directories have been set up as detailed in the github page, you can run the bash script: 
+```
+./CompileData_Automes.sh 
+```
 
 Then to plot, run the R script `AdmixturePlotter.R`:
 ```
