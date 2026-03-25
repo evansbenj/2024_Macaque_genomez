@@ -36,6 +36,58 @@ done
 ```
 I did this also for the X chromosome.
 
+# Rename folders
+```
+#!/usr/bin/env perl
+use strict;
+use warnings;
+
+# This script will rename directories for admixXtureplotter
+
+# Execute it in a directory that has 2 folders in it called
+# admixX1...admixX20
+
+
+my $y= 12; # this is the number of ancestral populations
+my $x;
+my $z;
+my $command;
+
+
+#my @directorynamez = ("admixX1/","admixX2/","admixX3/","admixX4/","admixX5/","admixX6/",
+#						"admixX7/","admixX8/","admixX9/","admixX10/",
+#						"admixX11/","admixX12/","admixX13/","admixX14/","admixX15/","admixX16/",
+#						"admixX17/","admixX18/","admixX19/","admixX20/",);
+
+# make directories
+for ($x = 2 ; $x <= $y ; $x++ ) {
+	$command = "mkdir ".$x;
+	system($command);
+	$command = "mkdir ".$x."/Logs";
+	system($command);
+	for ($z = 1 ; $z <= 20 ; $z++ ) {
+		$command = "mkdir ".$x."/".$z;
+		system($command);
+	}	
+}
+
+
+for ($z = 1 ; $z <= 20 ; $z++ ) {
+	for ($x = 2 ; $x <= $y ; $x++ ) {
+		$command = "mv admixX".$z."/*.".$x.".P ".$x."/".$z."/.";
+		#print $command,"\n";
+		system($command);
+		$command = "mv admixX".$z."/*.".$x.".Q ".$x."/".$z."/.";
+		#print $command,"\n";
+		system($command);
+		$command = "mv admixX".$z."/log".$x.".out ".$x."/Logs/".$x."_".$z.".log";
+		#print $command,"\n";
+		system($command);
+	}	
+}		
+
+```
+
 # AdmixturePlotter
 
 I used scripts in the AdmixturePlotter pipeline (https://github.com/TCLamnidis/AdmixturePlotter) to plot the admixture results.
