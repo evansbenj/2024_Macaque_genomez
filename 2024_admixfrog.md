@@ -301,6 +301,8 @@ TGH:
         - s105226
 ```
 
+*** Note that two samples that were previously categorized as TMH were actually MTH (103204,103252), but this does not affect the reference so the analysis is the same.
+
 OK now make targets for each sample and for each chromosome:
 ```
 #!/bin/sh
@@ -411,7 +413,7 @@ module load StdEnv/2023 python/3.12.4
 
 ```
 ## Working directory
-setwd("/Users/Shared/Previously Relocated Items/Security/projects/2023_macaque_genomes/2024_macaques/admixfrog")
+setwd("/Users/Shared/Previously Relocated Items/Security/projects/2023_macaque_genomes/2024_macaques/admixfrog/MAU_TON_HEC")
 library(tidyverse)
 library(ggplot2)
 library(circlize)
@@ -425,48 +427,35 @@ rm(list=ls()) # removes all variables
 
 
 #MAU
-#sample_vector <- c("s103291","s103275","s103283","s103302","s105212","s105213","SAMN07508142","SAMN07508143","SAMN07508144","SAMN07508145","SAMN07508146","s103270","s103278","s103247","s103206","s103214","s103222","s103230","s103238","s103246","s103286","s103215","s103255","s103271","s103279","s103200")
+#sample_vector <- c("s103200","s103206","s103214","s103215","s103222","s103230","s103238","s103246","s103247","s103255","s103270","s103271","s103275","s103278","s103279","s103283","s103286","s103291","s103302","s105212","s105213","SAMN07508142","SAMN07508143","SAMN07508144","SAMN07508145","SAMN07508146")
 #pop <- "MAU"
 
 #TON
-sample_vector <- c("s105223","s105222","s105225","s105226","s103318","s105206","s105178","s105183","s105184","s105185","s105199","s105200","s105201","s103303","s103319","s103327","s103335","s103312","s103320","SAMN07503429","SAMN18571130","SAMN18571131","SAMN18571132","SAMN18571133","s103235","s103243","s103251","s103267")
-pop <- "TON"
+#sample_vector <- c("s103235","s103243","s103251","s103267","s103303","s103312","s103318","s103319","s103320","s103327","s103335","s105178","s105183","s105184","s105185","s105200","s105201","s105206","s105214","s105222","s105226","SAMN07503429","SAMN18571130","SAMN18571131","SAMN18571132")
+#pop <- "TON"
+
 
 #HEC
-# sample_vector <- c("s103306","s103314","SAMN07508136","s103346","s105180","SAMN07508138","SAMN18570967","SAMN18570968")
-# pop <- "HEC"
+sample_vector <- c("s103306","s103314","s103346","s105179","s105180","SAMN07508136","SAMN07508138","SAMN18570967","SAMN18570968")
+pop <- "HEC"
+
+#THH
+#sample_vector <- c("s105225")
+#pop <- "THH"
 
 #MTH
-# sample_vector <- c("s103294","s103260","s105211","s105215","s103212","s103228","s103264","s103280","s103288","s103272","s103209","s103233","s103202","s103258")
-# pop <- "MTH"
+#sample_vector <- c("s103202","s103204","s103209","s103212","s103228","s103233","s103252","s103258","s103264","s103272","s103280","s103288","s103294","s105211","s105215")
+#pop <- "MTH"
 
 #TMH
-# sample_vector <- c("s103204","s105210","s103252","s103313","s105214","s103224","s103274","s103282","s103219","s103226","s103266","s103273","s103281","s103289","s103227","s103249","s103257","s103265","s103210","s103234","s103203","s103211","s103259")
-# pop <- "TMH"
+#sample_vector <- c("s103203","s103210","s103211","s103219","s103224","s103226","s103227","s103234","s103249","s103257","s103259","s103260","s103265","s103266","s103273","s103274","s103281","s103282","s103289","s103313","s105210","s105223","SAMN18571133")
+#pop <- "TMH"
 
 #HTH
-# sample_vector <- c("s105224","s105181","s105179","SAMN18571119")
-# pop <- "HTH"
+#sample_vector <- c("s105181","s105224","s105204","SAMN18571119")
+#pop <- "HTH"
 
-#TOG
-# sample_vector <- c("s105187","s103334","s105188","s105190","s105191","s105194","s105198","s103326","s105186","s105192","s105193","s105195","s105196","s103374","s105197","SAMN07508162")
-# pop <- "TOG"
 
-#OCH
-# sample_vector <- c("s105202","s105203","s105205","s105207","s105204","s105208","s105209")
-# pop <- "OCH"
-
-#NGE
-# sample_vector <- c("s103315","SAMN07508157","SAMN18570966")
-# pop <- "NGE"
-
-#NGA
-# sample_vector <- c("s103391","s103371","SAMN07503430","SAMN07508155","SAMN07508156")
-# pop <- "NGA"
-
-# BRU
-# sample_vector <- c("SAMN07508135")
-# pop <- "BRU"
 
 analysis <-"_MAU_TON_HEC"
 chrs <- factor(c("Chr1","Chr2","Chr3","Chr4","Chr5","Chr6","Chr7","Chr8","Chr9",
@@ -542,7 +531,7 @@ chr_names_ordered_simple <- factor(chr_names, ordered = TRUE,
 
 # loop through each sample
 for (sample in sample_vector){
-  # sample <- 's105223'
+  # sample <- 's103306'
   # loop through chrs
   for(i in levels(chrs)){
     print(eval(i))
@@ -587,17 +576,17 @@ for (sample in sample_vector){
   Allchr_circular$end <- c(Allchr_circular$pos[-1]-1, NA)
   #View(Allchr_circular)
   # check for changes in chr at the last window
-  temp <- ifelse(Allchr_circular$end != Allchr_circular$pos + 99999,
-                                Allchr_circular$pos+99999,
+  temp <- ifelse(Allchr_circular$end != Allchr_circular$pos + 29999,
+                                Allchr_circular$pos+29999,
                                 Allchr_circular$end)
   # add this to the dataframe
   Allchr_circular$end <- temp
   # make an entry for last end positioin 
-  Allchr_circular$end[nrow(Allchr_circular)]<-Allchr_circular$pos[nrow(Allchr_circular)]+99999
+  Allchr_circular$end[nrow(Allchr_circular)]<-Allchr_circular$pos[nrow(Allchr_circular)]+29999
   #View(Allchr_circular)
   # Now fix the first entry of each chr
-  Allchr_circular$end <- ifelse(Allchr_circular$pos < 99999,
-                                99999,
+  Allchr_circular$end <- ifelse(Allchr_circular$pos < 29999,
+                                29999,
                                 Allchr_circular$end)
   
   # reorder the columns
@@ -634,6 +623,12 @@ long_big_monkey_df$chrom <- factor(long_big_monkey_df$chrom, ordered = TRUE,
 # get rid of rows with zero probability that do not need to be plotted
 long_big_monkey_df_smaller <- long_big_monkey_df[long_big_monkey_df$value != 0.0e+00 ]
 
+# long_big_monkey_df_smaller$sample <- factor(long_big_monkey_df_smaller$sample, ordered = TRUE, 
+#        levels = c("s105223","SAMN18571133","s103320","SAMN07503429","SAMN18571132","s105199","s105200","s105222","s105226","s105178","s105183","s105185","s105201","s103303","s103319","s103327","s103335","s103312","SAMN18571130","SAMN18571131","s103243","s103251","s105206","s105184","s103235","s103267","s103318","s105225"))
+
+#long_big_monkey_df_smaller$sample <- factor(long_big_monkey_df_smaller$sample, ordered = TRUE, 
+#                                            levels = c("SAMN07508142","SAMN07508143","SAMN07508144","SAMN07508145","SAMN07508146","s103246","s103222","s103286","s105212","s105213","s103291","s103275","s103283","s103302","s103270","s103278","s103247","s103206","s103214","s103230","s103238","s103215","s103255","s103271","s103279","s103200"))
+
 # temp <- long_big_monkey_df_smaller[long_big_monkey_df_smaller$sample == "s103291" ]
 
 # fiddle with x axis tics
@@ -647,12 +642,11 @@ long_big_monkey_df_smaller <- long_big_monkey_df[long_big_monkey_df$value != 0.0
 
  
 
-png(paste(eval(pop),eval(analysis),"_stacked.png",sep=""),
-    width = 1500, height = eval(length(sample_vector))*35, units='mm', res = 300) 
-    # adjust the height depending on the number of samples
-   #  ggplot(long_big_monkey_df, aes(x = start, y = value, fill = ancestry, color = color)) + 
-  # ggplot(temp %>% arrange(sample,chrom),   
-  ggplot(long_big_monkey_df_smaller %>% arrange(sample,chrom), 
+# png(paste(eval(pop),eval(analysis),"_stacked.png",sep=""),
+#    width = 1500, height = eval(length(sample_vector))*200, units='mm', res = 500) 
+ 
+     # adjust the height depending on the number of samples
+g <- ggplot(long_big_monkey_df_smaller %>% arrange(sample,chrom), 
             aes(x = start/1000000, y = value, fill = ancestry)) + 
         geom_bar(position='fill', stat='identity') +
     #scale_fill_brewer(type = "seq", palette = 6) +
@@ -670,7 +664,7 @@ png(paste(eval(pop),eval(analysis),"_stacked.png",sep=""),
       scale_x_continuous(breaks = c(0,100,200)) +
       scale_y_continuous(breaks = c(0,1)) +
       labs(x = "Chromosome and Coordinates (100Mb)", y = "Probability") +
-      theme_classic(base_size = 38) + 
+      theme_classic(base_size = 18) + 
       # guides(color = FALSE) +
       theme(panel.grid.minor=element_blank(),panel.grid.major=element_blank())+
       theme(strip.text.y.right = element_text(angle = 0)) +
@@ -682,6 +676,26 @@ png(paste(eval(pop),eval(analysis),"_stacked.png",sep=""),
       # theme(panel.spacing.x = unit(0.5, "lines")) +
       # Change vertical spacing between facets
       # theme(panel.spacing.y = unit(0.5, "lines"))
-dev.off()
+
+
+ggsave(paste(eval(pop),eval(analysis),"_stacked.pdf",sep=""),
+       dpi = 300, 
+       width = 20,
+       # for MAU, TON, TMH
+       #height = 25,
+       # for HEC
+       # height = 6,
+       # for THH
+       #height = 3,
+       # MTH
+        height = 18,
+       # HTH
+       #height = 5,
+       units='in')
+
+#png(paste(eval(pop),eval(analysis),"_stacked.png",sep=""),
+#    width = 1500, height = 10000, units='mm', res = 500) 
+
+#dev.off()
 
 ```
