@@ -639,6 +639,11 @@ close OUTFILE;
 ```
 
 # Tabulating Ninteract genes
+First make a file that lists all genes on introgression blockz:
+```
+grep 'These are the Ninteract genes that are on at least one admixture block' *_homoz_only_*_perms.oout > homoz.Ninteract.txt
+grep 'These are the Ninteract genes that are on at least one admixture block' *hethomoz_*_perms.oout > het.Ninteract.txt
+```
 
 Of interest is whether there are some Ninteract genes that tend to be in introgression blocks more than others. I used grep to quantify the presence of Ninteract genes in introgression blocks by searching through the output files generated from the scripts above:
 ```
