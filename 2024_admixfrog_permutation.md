@@ -31583,7 +31583,7 @@ grep -c ' UGT2B33 '  homoz.Ninteract.txt >> homoz_counts.txt
 
 grep -c ' LOC114678332 '  homoz.Ninteract.txt >> homoz_counts.txt
 
-grep -c ' UGT2B9*2 '  homoz.Ninteract.txt >> homoz_counts.txt
+grep -c ' UGT2B9*'  homoz.Ninteract.txt >> homoz_counts.txt
 
 grep -c ' UGT2B7 '  homoz.Ninteract.txt >> homoz_counts.txt
 
