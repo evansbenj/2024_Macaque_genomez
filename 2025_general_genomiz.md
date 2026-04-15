@@ -16,9 +16,11 @@ For some reason, missing genotypes in the vcf files provided by Baylor had homoz
 
 # execute like this: ./2029_bcftools_recode_missing_genotypezs.sh inputvcf.gz
 module load StdEnv/2023  gcc/12.3 bcftools/1.19 tabix
+bcftools +setGT ${1} -Oz -o ${1}_with_corrected_missing_genotypez.vcf.gz -- -t q -n . \
+	 -i "FMT/GT=\"0/0\" & FMT/DP=0"
 
-bcftools +setGT ${1} -Oz -o ${1}_with_corrected_missing_genotypez.vcf.gz -- -t q -n . -i 'GT="0/0" && FMT/DP=0'
 bcftools index ${1}_with_corrected_missing_genotypez.vcf.gz
+
 ```
 
 
