@@ -1,5 +1,28 @@
 # General Genomics
 
+# Fixing missing genotypes
+For some reason, missing genotypes in the vcf files provided by Baylor had homoz reference calls even when there was zero depth coverage. To fix this I used bcftools:
+
+```
+#!/bin/sh
+#SBATCH --job-name=bcftools
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=1
+#SBATCH --time=3:00:00
+#SBATCH --mem=2gb
+#SBATCH --output=bcftools.%J.out
+#SBATCH --error=bcftools.%J.err
+#SBATCH --account=rrg-ben
+
+# execute like this: ./2029_bcftools_recode_missing_genotypezs.sh inputvcf.gz
+module load StdEnv/2023  gcc/12.3 bcftools/1.19 tabix
+
+bcftools +setGT ${1} -Oz -o ${1}_with_corrected_missing_genotypez.vcf.gz -- -t q -n . -i 'GT="0/0" && FMT/DP=0'
+bcftools index ${1}_with_corrected_missing_genotypez.vcf.gz
+```
+
+
+
 After hardfiltering, I initially removed positions with missing genotypes:
 ```
 vcftools --gzvcf all_162_maqs_chr1.vcf.gz --max-missing-count 0 --min-alleles 2 --max-alleles 2 --minQ 30 --recode --recode-INFO-all --stdout | gzip -c > all_162_maqs_chr1_maxmissingcount_0_biallelic_genoqual30.vcf.gz
