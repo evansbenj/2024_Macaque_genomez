@@ -1,6 +1,11 @@
 # Extract protein seq from vcf
 
-Useful:
+```
+zgrep -E "ID=gene:ENSMMUG00000030317|Parent=gene:ENSMMUG00000030317|transcript:ENSMMUT00000042226" ../../../rheMac10/Macaca_mulatta.Mmul_10.115.gff3.gz > MRPL1.gff3
+```
+
+
+Below could be useful but never worked:
 ```
 module load apptainer/1.4.5    StdEnv/2023
 singularity run agat_1.4.2--pl5321hdfd78af_0.sif
