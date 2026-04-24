@@ -1,0 +1,15 @@
+# Extract protein seq from vcf
+
+Useful:
+```
+module load apptainer/1.4.5    StdEnv/2023
+singularity run agat_1.4.2--pl5321hdfd78af_0.sif
+```
+# Convert gtf to gff3 (not used)
+```
+agat_convert_sp_gxf2gxf.pl --gtf ../2021_rhemac_v10/rheMac10.refGene.gtf -o rheMac10.refGene.gff3
+```
+# Extract gff3 from one gene from a genomewide gff3 file:
+```
+agat_sp_extract_attributes.pl --gff ../../../rheMac10/Macaca_mulatta.Mmul_10.115.gff3.gz -t gene --attribute ENSMMUG00000030317 -o MRPL1.gff3
+```
