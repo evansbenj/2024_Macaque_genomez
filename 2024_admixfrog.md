@@ -119,6 +119,39 @@ all160.chr8_maxmissingcount_0_genoqual30.vcf.gz
 all160.chr9_maxmissingcount_0_genoqual30.vcf.gz
 all160.chrX_maxmissingcount_0_genoqual30.vcf.gz
 ```
+Then I filtered again to save only SNPs:
+```
+#!/bin/sh
+#SBATCH --job-name=bcftools
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=1
+#SBATCH --time=3:00:00
+#SBATCH --mem=2gb
+#SBATCH --output=bcftools.%J.out
+#SBATCH --error=bcftools.%J.err
+#SBATCH --account=rrg-ben
+
+# execute like this: ./2024_bcftools_extract_snps.sh input
+# load these modules before running:
+module load StdEnv/2023  gcc/12.3 bcftools/1.19
+module load StdEnv/2023 gatk/4.4.0.0 java/21.0.1
+module load tabix
+
+bcftools view --include 'TYPE="snp"' ${1} > ${1}_snpsonly.vcf
+bgzip ${1}_snpsonly.vcf
+bcftools index ${1}_snpsonly.vcf.gz
+gatk --java-options -Xmx10G IndexFeatureFile -I ${1}_snpsonly.vcf.gz
+
+# I think this option retains indels; it generates a larger file than the above
+# bcftools view -e 'TYPE="ref"' ${1} > ${1}_noref.vcf
+# bgzip ${1}_noref.vcf
+# bcftools index ${1}_noref.vcf.gz
+# gatk --java-options -Xmx10G IndexFeatureFile -I ${1}_noref.vcf.gz
+```
+to get these files:
+```
+```
+
 Then I thinned, saving only positions that are at least 5000 bp apart.
 ```
 #!/bin/sh
