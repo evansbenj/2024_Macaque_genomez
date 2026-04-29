@@ -200,6 +200,30 @@ tabix -p vcf ${1}_thinned.recode.vcf.gz
 #bcftools index SulaSNPs.${2}_maxmissingcount_0_genoqual30.vcf.gz
 #gatk --java-options -Xmx10G IndexFeatureFile -I SulaSNPs.${2}_maxmissingcount_0_genoqual30.vcf.gz
 ```
+to get these files:
+```
+all160.chr10_maxmissingcount_0_genoqual30.vcf.gz_snpsonly.vcf.gz_5000_thinned.recode.vcf.gz
+all160.chr11_maxmissingcount_0_genoqual30.vcf.gz_snpsonly.vcf.gz_5000_thinned.recode.vcf.gz
+all160.chr12_maxmissingcount_0_genoqual30.vcf.gz_snpsonly.vcf.gz_5000_thinned.recode.vcf.gz
+all160.chr13_maxmissingcount_0_genoqual30.vcf.gz_snpsonly.vcf.gz_5000_thinned.recode.vcf.gz
+all160.chr14_maxmissingcount_0_genoqual30.vcf.gz_snpsonly.vcf.gz_5000_thinned.recode.vcf.gz
+all160.chr15_maxmissingcount_0_genoqual30.vcf.gz_snpsonly.vcf.gz_5000_thinned.recode.vcf.gz
+all160.chr16_maxmissingcount_0_genoqual30.vcf.gz_snpsonly.vcf.gz_5000_thinned.recode.vcf.gz
+all160.chr17_maxmissingcount_0_genoqual30.vcf.gz_snpsonly.vcf.gz_5000_thinned.recode.vcf.gz
+all160.chr18_maxmissingcount_0_genoqual30.vcf.gz_snpsonly.vcf.gz_5000_thinned.recode.vcf.gz
+all160.chr19_maxmissingcount_0_genoqual30.vcf.gz_snpsonly.vcf.gz_5000_thinned.recode.vcf.gz
+all160.chr20_maxmissingcount_0_genoqual30.vcf.gz_snpsonly.vcf.gz_5000_thinned.recode.vcf.gz
+all160.chr1_maxmissingcount_0_genoqual30.vcf.gz_snpsonly.vcf.gz_5000_thinned.recode.vcf.gz
+all160.chr2_maxmissingcount_0_genoqual30.vcf.gz_snpsonly.vcf.gz_5000_thinned.recode.vcf.gz
+all160.chr3_maxmissingcount_0_genoqual30.vcf.gz_snpsonly.vcf.gz_5000_thinned.recode.vcf.gz
+all160.chr4_maxmissingcount_0_genoqual30.vcf.gz_snpsonly.vcf.gz_5000_thinned.recode.vcf.gz
+all160.chr5_maxmissingcount_0_genoqual30.vcf.gz_snpsonly.vcf.gz_5000_thinned.recode.vcf.gz
+all160.chr6_maxmissingcount_0_genoqual30.vcf.gz_snpsonly.vcf.gz_5000_thinned.recode.vcf.gz
+all160.chr7_maxmissingcount_0_genoqual30.vcf.gz_snpsonly.vcf.gz_5000_thinned.recode.vcf.gz
+all160.chr8_maxmissingcount_0_genoqual30.vcf.gz_snpsonly.vcf.gz_5000_thinned.recode.vcf.gz
+all160.chr9_maxmissingcount_0_genoqual30.vcf.gz_snpsonly.vcf.gz_5000_thinned.recode.vcf.gz
+all160.chrX_maxmissingcount_0_genoqual30.vcf.gz_snpsonly.vcf.gz_5000_thinned.recode.vcf.gz
+```
 
 
 Directory:
