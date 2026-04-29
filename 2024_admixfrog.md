@@ -1,25 +1,11 @@
 # Admixfrog
 
+I am redoing this in 2026 because there were inappropriate reference genotypes with zero depth in some samples.
+
 Directory:
 ```
-/home/ben/projects/rrg-ben/ben/2024_macaques/concatenated_vcfs/SulaSNPs_only_hardfiltered_and_thinned
+/home/ben/projects/rrg-ben/ben/2024_macaques/concatenated_vcfs/all_hardfiltered/160_vcfz
 ```
-
-Admixfrog is a program written by Ben Peter that uses an HMM to estimate locations of introgression blocks in genomic data.
-
-I installed the latest version (admixfrog 0.7.2.post1.dev0+1c27c43) like this:
-```
-module load StdEnv/2023 python/3.12.4
-pip install cython scipy --upgrade --user
-pip install git+https://github.com/benjaminpeter/admixfrog --user
-```
-
-and tested like this:
-
-```
-/home/ben/.local/bin/admixfrog --help
-```
-
 # Filtering
 I first removed hard filtered positions using bcftools:
 ```
@@ -41,6 +27,51 @@ bcftools view -f PASS ${1} -O z -o ${1}_filtered.vcf.gz
 bcftools index ${1}_filtered.vcf.gz
 gatk --java-options -Xmx10G IndexFeatureFile -I ${1}_filtered.vcf.gz
 ```
+
+Then I corrected missing genotypes corrected with bcftools like this:
+```
+#!/bin/sh
+#SBATCH --job-name=bcftools
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=1
+#SBATCH --time=3:00:00
+#SBATCH --mem=2gb
+#SBATCH --output=bcftools.%J.out
+#SBATCH --error=bcftools.%J.err
+#SBATCH --account=rrg-ben
+
+# execute like this: ./2029_bcftools_recode_missing_genotypezs.sh inputvcf.gz
+module load StdEnv/2023  gcc/12.3 bcftools/1.19 tabix
+bcftools +setGT ${1} -Oz -o ${1}_with_corrected_missing_genotypez.vcf.gz -- -t q -n . \
+	 -i "FMT/GT=\"0/0\" & FMT/DP=0"
+
+bcftools index ${1}_with_corrected_missing_genotypez.vcf.gz
+```
+to get these files:
+```
+mac_chr10_concat.vcf.gz_filtered.vcf.gz_all160_snpsonly.vcf.gz_with_corrected_missing_genotypez.vcf.gz
+mac_chr11_concat.vcf.gz_filtered.vcf.gz_all160_snpsonly.vcf.gz_with_corrected_missing_genotypez.vcf.gz
+mac_chr12_concat.vcf.gz_filtered.vcf.gz_all160_snpsonly.vcf.gz_with_corrected_missing_genotypez.vcf.gz
+mac_chr13_concat.vcf.gz_filtered.vcf.gz_all160_snpsonly.vcf.gz_with_corrected_missing_genotypez.vcf.gz
+mac_chr14_concat.vcf.gz_filtered.vcf.gz_all160_snpsonly.vcf.gz_with_corrected_missing_genotypez.vcf.gz
+mac_chr15_concat.vcf.gz_filtered.vcf.gz_all160_snpsonly.vcf.gz_with_corrected_missing_genotypez.vcf.gz
+mac_chr16_concat.vcf.gz_filtered.vcf.gz_all160_snpsonly.vcf.gz_with_corrected_missing_genotypez.vcf.gz
+mac_chr17_concat.vcf.gz_filtered.vcf.gz_all160_snpsonly.vcf.gz_with_corrected_missing_genotypez.vcf.gz
+mac_chr18_concat.vcf.gz_filtered.vcf.gz_all160_snpsonly.vcf.gz_with_corrected_missing_genotypez.vcf.gz
+mac_chr19_concat.vcf.gz_filtered.vcf.gz_all160_snpsonly.vcf.gz_with_corrected_missing_genotypez.vcf.gz
+mac_chr1_concat.vcf.gz_filtered.vcf.gz_all160_snpsonly.vcf.gz_with_corrected_missing_genotypez.vcf.gz
+mac_chr20_concat.vcf.gz_filtered.vcf.gz_all160_snpsonly.vcf.gz_with_corrected_missing_genotypez.vcf.gz
+mac_chr2_concat.vcf.gz_filtered.vcf.gz_all160_snpsonly.vcf.gz_with_corrected_missing_genotypez.vcf.gz
+mac_chr3_concat.vcf.gz_filtered.vcf.gz_all160_snpsonly.vcf.gz_with_corrected_missing_genotypez.vcf.gz
+mac_chr4_concat.vcf.gz_filtered.vcf.gz_all160_snpsonly.vcf.gz_with_corrected_missing_genotypez.vcf.gz
+mac_chr5_concat.vcf.gz_filtered.vcf.gz_all160_snpsonly.vcf.gz_with_corrected_missing_genotypez.vcf.gz
+mac_chr6_concat.vcf.gz_filtered.vcf.gz_all160_snpsonly.vcf.gz_with_corrected_missing_genotypez.vcf.gz
+mac_chr7_concat.vcf.gz_filtered.vcf.gz_all160_snpsonly.vcf.gz_with_corrected_missing_genotypez.vcf.gz
+mac_chr8_concat.vcf.gz_filtered.vcf.gz_all160_snpsonly.vcf.gz_with_corrected_missing_genotypez.vcf.gz
+mac_chr9_concat.vcf.gz_filtered.vcf.gz_all160_snpsonly.vcf.gz_with_corrected_missing_genotypez.vcf.gz
+mac_chrX_concat.vcf.gz_filtered.vcf.gz_all160_snpsonly.vcf.gz_with_corrected_missing_genotypez.vcf.gz
+```
+
 Then I filtered to include only sites with the number of missing genotypes being less than or equal to 0 and setting the minimum genotype quality at 30 as follows:
 ```
 #!/bin/sh
@@ -64,7 +95,7 @@ bgzip -c SulaSNPs.${2}_maxmissingcount_0_genoqual30.vcf > SulaSNPs.${2}_maxmissi
 bcftools index SulaSNPs.${2}_maxmissingcount_0_genoqual30.vcf.gz
 gatk --java-options -Xmx10G IndexFeatureFile -I SulaSNPs.${2}_maxmissingcount_0_genoqual30.vcf.gz
 ```
-Then I thinned, saving only positions that are at least 500 bp apart.
+Then I thinned, saving only positions that are at least 5000 bp apart.
 ```
 #!/bin/sh
 #SBATCH --job-name=vcftools_thin
@@ -90,6 +121,28 @@ tabix -p vcf ${1}_thinned.recode.vcf.gz
 #bcftools index SulaSNPs.${2}_maxmissingcount_0_genoqual30.vcf.gz
 #gatk --java-options -Xmx10G IndexFeatureFile -I SulaSNPs.${2}_maxmissingcount_0_genoqual30.vcf.gz
 ```
+
+
+Directory:
+```
+/home/ben/projects/rrg-ben/ben/2024_macaques/concatenated_vcfs/SulaSNPs_only_hardfiltered_and_thinned
+```
+
+Admixfrog is a program written by Ben Peter that uses an HMM to estimate locations of introgression blocks in genomic data.
+
+I installed the latest version (admixfrog 0.7.2.post1.dev0+1c27c43) like this:
+```
+module load StdEnv/2023 python/3.12.4
+pip install cython scipy --upgrade --user
+pip install git+https://github.com/benjaminpeter/admixfrog --user
+```
+
+and tested like this:
+
+```
+/home/ben/.local/bin/admixfrog --help
+```
+
 
 # Make reference
 
