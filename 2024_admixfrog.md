@@ -112,7 +112,7 @@ Then I thinned, saving only positions that are at least 5000 bp apart.
 module load StdEnv/2023  gcc/12.3 bcftools/1.19 gatk/4.4.0.0 java/17.0.6 tabix vcftools
 #vcftools --gzvcf ${1} --max-missing 1 --recode --recode-INFO-all --out ${1}_nomissing.vcf
 vcftools --gzvcf ${1} --max-missing-count 0 --minQ 30 --recode --recode-INFO-all --out SulaSNPs.${2}_maxmissingcount_0_genoqual30.vcf
-vcftools --gzvcf ${1} --thin 500 --recode --recode-INFO-all --out ${1}_thinned
+vcftools --gzvcf ${1} --thin 5000 --recode --recode-INFO-all --out ${1}_thinned
 bgzip -c ${1}_thinned.recode.vcf > ${1}_thinned.recode.vcf.gz
 tabix -p vcf ${1}_thinned.recode.vcf.gz
 
