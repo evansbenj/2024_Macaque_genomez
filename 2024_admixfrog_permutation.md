@@ -648,205 +648,206 @@ grep 'These are the Ninteract genes that are on at least one admixture block' *h
 Of interest is whether there are some Ninteract genes that tend to be in introgression blocks more than others. I used grep to quantify the presence of Ninteract genes in introgression blocks by searching through the output files generated from the scripts above:
 * Ninteract genez:
 ```
-grep -c ' TFB2M '  het.Ninteract.txt > het_counts.txt
-grep -c ' COX20 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' DARS2 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' MRPS14 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' PDC '  het.Ninteract.txt >> het_counts.txt
-grep -c ' IARS2 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' MRPL55 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' MRPL24 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' MRPL9 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' TARS2 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' MRPS21 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' WARS2 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' ATP5PB '  het.Ninteract.txt >> het_counts.txt
-grep -c ' PARS2 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' MRPL37 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' ATPAF1 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' NDUFS5 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' MRPS15 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' ATP5IF1 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' MRPL20 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' LOC716161 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' MRPL40 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' PET117 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' MRPS26 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' ATP5F1E '  het.Ninteract.txt >> het_counts.txt
-grep -c ' MRPL51 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' MRPS35 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' YARS2 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' COX14 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' ATP5F1B '  het.Ninteract.txt >> het_counts.txt
-grep -c ' MRPL42 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' NDUFA12 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' TMEM177 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' MARS2 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' NDUFB3 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' NDUFS1 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' PNKD '  het.Ninteract.txt >> het_counts.txt
-grep -c ' BCS1L '  het.Ninteract.txt >> het_counts.txt
-grep -c ' MRPL44 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' NDUFA10 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' MRPS5 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' MRPL30 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' MRPS9 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' MRPL35 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' MRPL19 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' MRPL53 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' COX7C '  het.Ninteract.txt >> het_counts.txt
-grep -c ' LRPPRC '  het.Ninteract.txt >> het_counts.txt
-grep -c ' MRPL33 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' ACP1 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' MRPL23 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' MRPL21 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' NDUFV1 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' MRPL11 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' MRPL49 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' COX8A '  het.Ninteract.txt >> het_counts.txt
-grep -c ' UQCC3 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' MRPL16 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' MRPL17 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' MRPL48 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' KCTD14 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' NDUFC2 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' NARS2 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' TMEM126B '  het.Ninteract.txt >> het_counts.txt
-grep -c ' ATP5MG '  het.Ninteract.txt >> het_counts.txt
-grep -c ' FOXRED1 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' MRPL41 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' MRPS2 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' LOC722212 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' NDUFA8 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' MRPL50 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' NDUFB6 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' DMAC1 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' TMEM220 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' COX10 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' TTC19 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' ATPAF2 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' MRPS23 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' COX11 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' MRPL27 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' ATP5MC1 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' MRPL10 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' MRPL45 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' CCDC56 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' TACO1 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' MRPL58 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' ATP5PD '  het.Ninteract.txt >> het_counts.txt
-grep -c ' MRPS7 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' MRPL38 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' MRPL12 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' MRPL57 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' MRPS31 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' CARS2 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' ATP5F1A '  het.Ninteract.txt >> het_counts.txt
-grep -c ' NDUFV2 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' POLRMT '  het.Ninteract.txt >> het_counts.txt
-grep -c ' ATP5F1D '  het.Ninteract.txt >> het_counts.txt
-grep -c ' UQCR '  het.Ninteract.txt >> het_counts.txt
-grep -c ' MRPL54 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' PET100 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' NDUFA7 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' MRPL4 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' ECSIT '  het.Ninteract.txt >> het_counts.txt
-grep -c ' NDUFB7 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' MRPL34 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' NDUFA13 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' COX6B1 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' SARS2 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' MRPS12 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' DMAC2 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' NDUFA3 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' CMC1 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' MRPL3 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' MRPS22 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' MRPL47 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' NDUFB5 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' HIGD1A '  het.Ninteract.txt >> het_counts.txt
-grep -c ' LARS2 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' NDUFAF3 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' MRPS25 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' ACAD9 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' NDUFB4 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' COX17 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' TIMMDC1 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' MRPL28 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' MRPS34 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' NDUFB10 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' TMEM186 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' EARS2 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' NDUFAB1 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' COX4I1'  het.Ninteract.txt >> het_counts.txt
-grep -c ' NDUFV3 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' MRPS6 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' ATP5PO '  het.Ninteract.txt >> het_counts.txt
-grep -c ' ATP5PF '  het.Ninteract.txt >> het_counts.txt
-grep -c ' MRPL39 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' COX19 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' ATP5MF '  het.Ninteract.txt >> het_counts.txt
-grep -c ' MRPS17 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' MRPS24 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' COA1 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' MRPL32 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' NDUFA4 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' NDUFB2 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' MRPS33 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' MRPL18 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' TFB1M '  het.Ninteract.txt >> het_counts.txt
-grep -c ' NDUFAF4 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' RARS2 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' AARS2 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' MRPL14 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' MRPS18A '  het.Ninteract.txt >> het_counts.txt
-grep -c ' MRPL2 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' MRPS10 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' C6orf125 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' VARS2 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' MRPS18B '  het.Ninteract.txt >> het_counts.txt
-grep -c ' FARS2 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' ATP5ME '  het.Ninteract.txt >> het_counts.txt
-grep -c ' SMIM20 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' MRPS18C '  het.Ninteract.txt >> het_counts.txt
-grep -c ' MRPL1 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' NDUFC1 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' MRPL36 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' NDUFS6 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' MRPS30 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' NDUFS4 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' NDUFAF2 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' MRPS36 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' MRPS27 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' LYRM7 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' UQCRQ '  het.Ninteract.txt >> het_counts.txt
-grep -c ' CD14 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' NDUFA2 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' HARS2 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' MRPL22 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' NDUFAF1 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' COX5A '  het.Ninteract.txt >> het_counts.txt
-grep -c ' MRPL46 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' MRPS11 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' MRPL52 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' DMAC2L '  het.Ninteract.txt >> het_counts.txt
-grep -c ' COX16 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' NDUFB1 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' ATP5MPL '  het.Ninteract.txt >> het_counts.txt
-grep -c ' MRPL15 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' TMEM70 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' MRPS28 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' NDUFAF6 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' COX6C '  het.Ninteract.txt >> het_counts.txt
-grep -c ' MRPL13 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' NDUFB9 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' CYC1 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' ATP5F1C '  het.Ninteract.txt >> het_counts.txt
-grep -c ' MRPS16 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' TFAM '  het.Ninteract.txt >> het_counts.txt
-grep -c ' NDUFB8 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' MRPL43 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' ATP5MD '  het.Ninteract.txt >> het_counts.txt
+grep -oE " TFB2M " het.Ninteract.txt | sort | uniq -c > het_counts.txt
+grep -oE " COX20 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " DARS2 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " MRPS14 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " PDC " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " IARS2 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " MRPL55 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " MRPL24 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " MRPL9 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " TARS2 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " MRPS21 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " WARS2 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " ATP5PB " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " PARS2 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " MRPL37 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " ATPAF1 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " NDUFS5 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " MRPS15 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " ATP5IF1 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " MRPL20 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " LOC716161 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " MRPL40 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " PET117 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " MRPS26 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " ATP5F1E " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " MRPL51 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " MRPS35 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " YARS2 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " COX14" het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " ATP5F1B " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " MRPL42 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " NDUFA12 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " TMEM177 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " MARS2 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " NDUFB3 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " NDUFS1 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " PNKD " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " BCS1L " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " MRPL44 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " NDUFA10 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " MRPS5 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " MRPL30 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " MRPS9 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " MRPL35 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " MRPL19 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " MRPL53 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " COX7C " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " LRPPRC " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " MRPL33 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " ACP1 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " MRPL23 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " MRPL21 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " NDUFV1 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " MRPL11 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " MRPL49 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " COX8A " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " UQCC3 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " MRPL16 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " MRPL17 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " MRPL48 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " KCTD14 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " NDUFC2 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " NARS2 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " TMEM126B " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " ATP5MG " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " FOXRED1 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " MRPL41 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " MRPS2 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " LOC722212 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " NDUFA8 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " MRPL50 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " NDUFB6 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " DMAC1 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " TMEM220 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " COX10 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " TTC19 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " ATPAF2 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " MRPS23 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " COX11 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " MRPL27 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " ATP5MC1 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " MRPL10 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " MRPL45 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " CCDC56 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " TACO1 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " MRPL58 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " ATP5PD " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " MRPS7 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " MRPL38 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " MRPL12 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " MRPL57 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " MRPS31 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " CARS2 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " ATP5F1A " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " NDUFV2 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " POLRMT " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " ATP5F1D " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " UQCR " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " MRPL54 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " PET100 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " NDUFA7 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " MRPL4 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " ECSIT " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " NDUFB7 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " MRPL34 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " NDUFA13 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " COX6B1 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " SARS2 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " MRPS12 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " DMAC2 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " NDUFA3 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " CMC1 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " MRPL3 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " MRPS22 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " MRPL47 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " NDUFB5 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " HIGD1A " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " LARS2 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " NDUFAF3 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " MRPS25 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " ACAD9 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " NDUFB4 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " COX17 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " TIMMDC1 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " MRPL28 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " MRPS34 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " NDUFB10 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " TMEM186 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " EARS2 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " NDUFAB1 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " COX4I1 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " NDUFV3 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " MRPS6 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " ATP5PO " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " ATP5PF " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " MRPL39 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " COX19 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " ATP5MF " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " MRPS17 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " MRPS24 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " COA1 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " MRPL32 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " NDUFA4 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " NDUFB2 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " MRPS33 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " MRPL18 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " TFB1M " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " NDUFAF4 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " RARS2 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " AARS2 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " MRPL14 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " MRPS18A " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " MRPL2 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " MRPS10 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " C6orf125 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " VARS2 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " MRPS18B " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " FARS2 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " ATP5ME " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " SMIM20 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " MRPS18C " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " MRPL1 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " NDUFC1 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " MRPL36 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " NDUFS6 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " MRPS30 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " NDUFS4 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " NDUFAF2 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " MRPS36 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " MRPS27 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " LYRM7 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " UQCRQ " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " CD14 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " NDUFA2 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " HARS2 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " MRPL22 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " NDUFAF1 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " COX5A " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " MRPL46 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " MRPS11 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " MRPL52 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " DMAC2L " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " COX16 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " NDUFB1 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " ATP5MPL " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " MRPL15 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " TMEM70 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " MRPS28 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " NDUFAF6 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " COX6C " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " MRPL13 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " NDUFB9 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " CYC1 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " ATP5F1C " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " MRPS16 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " TFAM " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " NDUFB8 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " MRPL43 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " ATP5MD " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+
 ```
 * non_Ninteract genez:
 
