@@ -778,7 +778,7 @@ grep -c ' NDUFB10 '  het.Ninteract.txt >> het_counts.txt
 grep -c ' TMEM186 '  het.Ninteract.txt >> het_counts.txt
 grep -c ' EARS2 '  het.Ninteract.txt >> het_counts.txt
 grep -c ' NDUFAB1 '  het.Ninteract.txt >> het_counts.txt
-grep -c ' COX4I1 '  het.Ninteract.txt >> het_counts.txt
+grep -c ' COX4I1'  het.Ninteract.txt >> het_counts.txt
 grep -c ' NDUFV3 '  het.Ninteract.txt >> het_counts.txt
 grep -c ' MRPS6 '  het.Ninteract.txt >> het_counts.txt
 grep -c ' ATP5PO '  het.Ninteract.txt >> het_counts.txt
