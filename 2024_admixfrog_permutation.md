@@ -778,7 +778,7 @@ grep -oE " NDUFB10 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
 grep -oE " TMEM186 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
 grep -oE " EARS2 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
 grep -oE " NDUFAB1 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
-grep -oE " COX4I1 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
+grep -oE " COX4I1" het.Ninteract.txt | sort | uniq -c >> het_counts.txt
 grep -oE " NDUFV3 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
 grep -oE " MRPS6 " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
 grep -oE " ATP5PO " het.Ninteract.txt | sort | uniq -c >> het_counts.txt
