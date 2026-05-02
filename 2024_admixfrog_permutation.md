@@ -405,7 +405,7 @@ my $n_introgression_blocks_without_genez=0;
 my $n_Ninteract_genes_on_introgression_blockz=0;
 my $n_genes_on_introgression_blockz=0;
 my $n_genes_on_non_introgression_blockz=0;
-my $admixfrog_block_size=30000; # the 2024 admixfrog blocks are 30000 bp
+my $admixfrog_block_size=10000; # the 2026 admixfrog blocks are 10000 bp
 my %introgression_blocks;
 my @Ninteract_genez_on_one_or_more_admixture_block;
 my %perm_blockz; 
