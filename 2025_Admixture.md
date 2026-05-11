@@ -2,18 +2,15 @@
 
 I'm going to use our vcf files as input to do Structure analysis using AdmixPipe3 (https://github.com/stevemussmann/admixturePipeline). I'd like to summarize multiple runs using CLUMPAK (https://clumpak.tau.ac.il/download.html).
 
-First remove positions with missing data:
+I'm working with thinned files that have the '0/0' genotypes with no data removed in this directory
 ```
-vcftools --vcf all_162_maqs_chr1.vcf --max-missing-count 0 --minQ 30 --recode --recode-INFO-all --out all_162_maqs_chr1_maxmissingcount_0_genoqual30.vcf
+/home/ben/projects/rrg-ben/ben/2024_macaques/concatenated_vcfs/all_hardfiltered/160_vcfz
 ```
-Now thin data to include only positions in every 5000 bp
-```
-vcftools --vcf all_162_maqs_chr1_maxmissingcount_0_genoqual30.vcf.recode.vcf --out all_162_maqs_chr1_maxmissingcount_0_genoqual30_thin_5000 --thin 5000 --recode
-```
+The data are thinned to include every 5000 bp as detailed for the admix frog analysis
 
 on info I then concatenated the autosomal chrs:
 ```
-bcftools concat all160.Chr{1..20}_maxmissingcount_0_genoqual30.vcf.gz_5000_thinned.recode.vcf -Ov -o all_160_maqs_allautsomal_chrs_maxmissingcount_0_genoqual30_thin_5000.recode.vcf
+bcftools concat all160.chr{1..20}_maxmissingcount_0_genoqual30.vcf.gz_snpsonly.vcf.gz_5000_thinned.recode.vcf.gz -Ov -o all_160_maqs_allautsomal_chrs_maxmissingcount_0_genoqual30_thin_5000.recode.vcf
 ```
 and then I used plink to make the input files:
 ```
