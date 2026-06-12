@@ -6,6 +6,11 @@ Directory:
 ```
 /home/ben/projects/rrg-ben/ben/2024_macaques/concatenated_vcfs/all_hardfiltered/160_vcfz
 ```
+Admixfrog output files are here:
+```
+/home/ben/projects/rrg-ben/ben/2024_macaques/concatenated_vcfs/SulaSNPs_only_hardfiltered_and_thinned/2026_30kbwindowz_MAU_TON_HEC_outputz
+/home/ben/projects/rrg-ben/ben/2024_macaques/concatenated_vcfs/SulaSNPs_only_hardfiltered_and_thinned/2026_30kbwindowz_TON_TOG_OCH_outputz
+```
 # Filtering
 I first removed hard filtered positions using bcftools:
 ```
