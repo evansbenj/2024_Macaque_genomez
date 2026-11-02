@@ -10,3 +10,12 @@ Proteins
 /home/ben/projects/rrg-ben/ben/2024_macaques/rheMac10/Macaca_mulatta.Mmul_10.pep.all.fa
 /home/ben/projects/rrg-ben/ben/2024_macaques/rheMac10/uniprotkb_proteome_UP000006718_2026_04_22.fasta
 ```
+Annotation: 
+```
+/home/ben/projects/rrg-ben/ben/2024_macaques/rheMac10/GCF_003339765.1_Mmul_10_genomic.gff.gz
+```
+
+Variants
+```
+/home/ben/projects/rrg-ben/ben/2024_macaques/concatenated_vcfs/all_not_hardfiltered
+```
