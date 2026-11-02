@@ -19,3 +19,8 @@ Variants
 ```
 /home/ben/projects/rrg-ben/ben/2024_macaques/concatenated_vcfs/all_not_hardfiltered
 ```
+
+Chromosome names:
+```
+/home/ben/projects/rrg-ben/ben/2024_macaques/rheMac10/GCF_003339765.1_Mmul_10_genomic.gff_codez.txt
+```
