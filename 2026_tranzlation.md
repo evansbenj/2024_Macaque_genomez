@@ -51,6 +51,9 @@ source get_span_from_gff.sh ${gff}.gff
 REGION="${better_chr}:${REGION#*:}"
 ### Generate haplotype consensus sequences (need to change chromosome number!)
 source get_the_haplotypez.sh mac_chr${better_chr}_concat.vcf.gz ${gff}
+### Convert any deletion asterisks to gaps
+sed -i 's/*/-/g' *.hap1.region.fa
+sed -i 's/*/-/g' *.hap2.region.fa
 ### Convert CDS coordinates into region-relative coordinates
 source get_relative_bed.sh ${gff}
 ### Change the name of the chromosome
