@@ -69,7 +69,9 @@ mkdir ${gff}; mv *${gff}* ${gff}
 cd ${gff}
 perl ../aa_pi_per_site.pl --fasta ${gff}_all_proteins_aligned.fa --subset "$( < ../MAU_binary.txt )"
 perl ../aa_pi_per_site.pl --fasta ${gff}_all_proteins_aligned.fa --subset "$( < ../TON_binary.txt )"
-perl ../aa_pi_per_site.pl --fasta ${gff}_all_proteins_aligned.fa --subset "$( < ../MAUTON_binary.txt )" 
+perl ../aa_pi_per_site.pl --fasta ${gff}_all_proteins_aligned.fa --subset "$( < ../MAUTON_binary.txt )"
+### Get rid of intermediate files
+rm *hap*
 ```
 
 # Scripts:
