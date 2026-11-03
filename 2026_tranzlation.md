@@ -29,9 +29,9 @@ apptainer run agat-1.7.0.sif agat_sp_keep_longest_isoform.pl \
 ```
 All linez
 ### set the gene name
-gff=ATP5F1A
+gff=AARS2
 #### get information about a gene (need to check if there are multiple transcripts - if yes, then remove some of the CDS)
-zgrep ${gff} /home/ben/projects/rrg-ben/ben/2024_macaques/rheMac10/GCF_003339765.1_Mmul_10_genomic.gff.gz | grep 'CDS' > ${gff}.gff
+grep ${gff} /home/ben/projects/rrg-ben/ben/2024_macaques/rheMac10/GCF_003339765.1_Mmul_10_genomic_longest_isoforms.gff | grep 'CDS' > ${gff}.gff
 #### get chromosome:
 silly_chr=$(head -n1 ${gff}.gff | cut -f1)
 better_chr=$(grep "${silly_chr}" /home/ben/projects/rrg-ben/ben/2024_macaques/rheMac10/GCF_003339765.1_Mmul_10_genomic.gff_codez.txt | cut -f1)
@@ -40,7 +40,7 @@ source make_bed_out_of_gff.sh ${gff}
 ### extract the CDS coordinates
 source get_span_from_gff.sh ${gff}.gff
 ### Get all sample names
-bcftools query -l multisample.vcf.gz > samples.txt
+# --> bcftools query -l mac_chr${better_chr}_concat.vcf.gz > samples.txt
 ### Change the $REGION environmental variable to match chr name (need to change chromosome number!)
 ### Transfer the chromosome names
 REGION="${better_chr}:${REGION#*:}"
@@ -68,6 +68,8 @@ mkdir ${gff}; mv *${gff}* ${gff}
 ### calculate pi
 cd ${gff}
 perl ../aa_pi_per_site.pl --fasta ${gff}_all_proteins_aligned.fa --subset "$( < ../MAU_binary.txt )"
+perl ../aa_pi_per_site.pl --fasta ${gff}_all_proteins_aligned.fa --subset "$( < ../TON_binary.txt )"
+perl ../aa_pi_per_site.pl --fasta ${gff}_all_proteins_aligned.fa --subset "$( < ../MAUTON_binary.txt )" 
 ```
 
 # Scripts:
