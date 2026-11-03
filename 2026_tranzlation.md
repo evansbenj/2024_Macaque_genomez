@@ -1,3 +1,8 @@
+# Working directory
+```
+/home/ben/projects/rrg-ben/ben/2024_macaques/concatenated_vcfs/all_not_hardfiltered
+```
+
 # First get longest transcript 
 
 (from support):
