@@ -13,6 +13,7 @@ Proteins
 Annotation: 
 ```
 /home/ben/projects/rrg-ben/ben/2024_macaques/rheMac10/GCF_003339765.1_Mmul_10_genomic.gff.gz
+/home/ben/projects/rrg-ben/ben/2024_macaques/rheMac10/GCF_003339765.1_Mmul_10_genomic_longest_isoforms.gff
 ```
 
 Variants
