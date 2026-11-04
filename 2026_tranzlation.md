@@ -30,6 +30,10 @@ apptainer run agat-1.7.0.sif agat_sp_keep_longest_isoform.pl \
 
 
 # Extract CDS, concatenate, and translate each gene; then align and calculate Fst
+(do_it_all.sh) execute in batch with a gene list like this:
+```
+xargs -I{} ./do_it_all.sh {} < genez.txt
+```
 
 ```
 All linez
@@ -41,29 +45,29 @@ grep "${gff};" /home/ben/projects/rrg-ben/ben/2024_macaques/rheMac10/GCF_0033397
 silly_chr=$(head -n1 ${gff}.gff | cut -f1)
 better_chr=$(grep "${silly_chr}" /home/ben/projects/rrg-ben/ben/2024_macaques/rheMac10/GCF_003339765.1_Mmul_10_genomic.gff_codez.txt | cut -f1)
 #### make bed out of gff
-source make_bed_out_of_gff.sh ${gff}
+source ./make_bed_out_of_gff.sh ${gff}
 ### extract the CDS coordinates
-source get_span_from_gff.sh ${gff}.gff
+source ./get_span_from_gff.sh ${gff}.gff
 ### Get all sample names
 # --> bcftools query -l mac_chr${better_chr}_concat.vcf.gz > samples.txt
 ### Change the $REGION environmental variable to match chr name (need to change chromosome number!)
 ### Transfer the chromosome names
 REGION="${better_chr}:${REGION#*:}"
 ### Generate haplotype consensus sequences (need to change chromosome number!)
-source get_the_haplotypez.sh mac_chr${better_chr}_concat.vcf.gz ${gff}
+source ./get_the_haplotypez.sh mac_chr${better_chr}_concat.vcf.gz ${gff}
 ### Convert any deletion asterisks to gaps
 sed -i 's/*/-/g' *.hap1.region.fa
 sed -i 's/*/-/g' *.hap2.region.fa
 ### Convert CDS coordinates into region-relative coordinates
-source get_relative_bed.sh ${gff}
+source ./get_relative_bed.sh ${gff}
 ### Change the name of the chromosome
 sed -i "s/${silly_chr}/${REGION}/g" ${gff}.relative.bed
 ### Extract CDS from every sample
-source extract_CDZ_using_relative_bed.sh ${gff}
+source ./extract_CDZ_using_relative_bed.sh ${gff}
 ### Concatenate CDS exons
-source concat_cdz_exonz.sh ${gff}
+source ./concat_cdz_exonz.sh ${gff}
 ### Translate CDS to protein
-source translate_dat_seq.sh ${gff}
+source ./translate_dat_seq.sh ${gff}
 ### Combine proteins into a single FASTA
 cat *.${gff}.hap[1,2].region.pep.fa > ${gff}_all_proteins.fa
 ### Remove stop codon
