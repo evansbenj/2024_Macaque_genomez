@@ -36,7 +36,7 @@ All linez
 ### set the gene name
 gff=AARS2
 #### get information about a gene (need to check if there are multiple transcripts - if yes, then remove some of the CDS)
-grep ${gff} /home/ben/projects/rrg-ben/ben/2024_macaques/rheMac10/GCF_003339765.1_Mmul_10_genomic_longest_isoforms.gff | grep 'CDS' > ${gff}.gff
+grep "${gff};" /home/ben/projects/rrg-ben/ben/2024_macaques/rheMac10/GCF_003339765.1_Mmul_10_genomic_longest_isoforms.gff | grep 'CDS' > ${gff}.gff
 #### get chromosome:
 silly_chr=$(head -n1 ${gff}.gff | cut -f1)
 better_chr=$(grep "${silly_chr}" /home/ben/projects/rrg-ben/ben/2024_macaques/rheMac10/GCF_003339765.1_Mmul_10_genomic.gff_codez.txt | cut -f1)
