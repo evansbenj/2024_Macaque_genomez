@@ -136,6 +136,16 @@ perl ../aa_pi_per_site.pl --fasta ${gff}_all_proteins_aligned.fa --subset "$( < 
 rm *hap*
 ```
 
+# Summarize the results:
+```
+for f in */*.aa_pi_per_site.txt
+do
+    gene=$(head -n1 "$f")
+    vals=$(grep "Average_pairwise_amino_acid_diversity" "$f" | awk '{print $2}' | paste -sd '\t' -)
+    echo -e "$gene\t$vals"
+done > gene_pi_values.txt
+```
+
 * concat_cdz_exonz.sh
 ```
 # source concat_cdz_exonz.sh gff_prefix
