@@ -146,6 +146,8 @@ do
 done > gene_pi_values.txt
 ```
 
+
+# These are the individual scripts in the pipeline:
 * concat_cdz_exonz.sh
 ```
 # source concat_cdz_exonz.sh gff_prefix
